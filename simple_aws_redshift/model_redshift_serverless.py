@@ -6,12 +6,13 @@ import dataclasses
 import datetime
 
 from func_args.api import REQ, T_KWARGS
+from iterproxy import IterProxy
 
 from .model import Base
 
 if T.TYPE_CHECKING:  # pragma: no cover
-    from mypy_boto3_redshift_serverless.client import RedshiftServerlessClient
     from mypy_boto3_redshift_serverless.type_defs import (
+        NamespaceTypeDef,
         NamespaceStatusType,
     )
 
@@ -26,32 +27,10 @@ class RedshiftServerlessNamespace(Base):
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/get_namespace.html
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/list_namespaces.html
 
-    :param _data: The raw data from the API response, stored as a dictionary. Example:
-
-    .. code-block:: python
-
-        {
-            'adminPasswordSecretArn': 'string',
-            'adminPasswordSecretKmsKeyId': 'string',
-            'adminUsername': 'string',
-            'creationDate': datetime(2015, 1, 1),
-            'dbName': 'string',
-            'defaultIamRoleArn': 'string',
-            'iamRoles': [
-                'string',
-            ],
-            'kmsKeyId': 'string',
-            'logExports': [
-                'useractivitylog'|'userlog'|'connectionlog',
-            ],
-            'namespaceArn': 'string',
-            'namespaceId': 'string',
-            'namespaceName': 'string',
-            'status': 'AVAILABLE'|'MODIFYING'|'DELETING'
-        }
+    :param _data: The raw data from the API response, stored as a dictionary.
     """
 
-    _data: dict[str, T.Any] = dataclasses.field(default=REQ)
+    _data: "NamespaceTypeDef" = dataclasses.field(default=REQ)
 
     @property
     def admin_password_secret_arn(self) -> T.Optional[str]:
@@ -69,7 +48,7 @@ class RedshiftServerlessNamespace(Base):
     def creation_date(self) -> T.Optional[datetime.datetime]:
         return self._data.get("creationDate")
 
-    @property  
+    @property
     def db_name(self) -> T.Optional[str]:
         return self._data.get("dbName")
 
@@ -114,3 +93,19 @@ class RedshiftServerlessNamespace(Base):
             "status": self.status,
             "creation_date": self.creation_date,
         }
+
+    @property
+    def is_available(self) -> bool:
+        return self.status == "AVAILABLE"
+
+    @property
+    def is_modifying(self) -> bool:
+        return self.status == "MODIFYING"
+
+    @property
+    def is_deleting(self) -> bool:
+        return self.status == "DELETING"
+
+
+class RedshiftServerlessNamespaceIterProxy(IterProxy[RedshiftServerlessNamespace]):
+    pass

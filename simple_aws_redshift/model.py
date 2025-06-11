@@ -30,7 +30,6 @@ by users of the library. They provide a Pythonic interface to the JSON data retu
 by the native boto3 AWS Redshift API.
 """
 
-import typing as T
 import dataclasses
 
 from func_args.api import T_KWARGS, BaseModel
