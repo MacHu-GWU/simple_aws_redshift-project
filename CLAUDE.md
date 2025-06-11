@@ -1,8 +1,73 @@
-# Code Structure Guide for mcp_ohmy_sql
+# Code Structure Guide for simple_aws_redshift
 
 This document provides a comprehensive guide to the codebase structure and architecture of the simple_aws_redshift project.
 
 ## Overview
+
+## AWS Redshift Model Architecture
+
+The AWS Redshift models follow a sophisticated lazy-loading architecture with three key design patterns:
+
+### 1. Raw Data Storage Pattern
+
+All models store the original API response data in a `_data` attribute, treating the AWS API response schema as potentially unstable. This raw data serves as the single source of truth for all model properties.
+
+```python
+@dataclasses.dataclass
+class RedshiftServerlessNamespace(Base):
+    _data: dict[str, T.Any] = dataclasses.field(default=REQ)
+```
+
+### 2. Property-Based Access Pattern (Lazy Loading)
+
+All attributes are exposed through properties rather than direct instance attributes. This lazy loading approach provides several benefits:
+
+- **Data validation**: Properties can validate and transform data on access
+- **Type conversion**: Raw API data can be converted to appropriate Python types
+- **Resilience**: Properties provide a stable interface even if the underlying API schema changes
+- **Performance**: Data is only processed when accessed
+
+Example implementation:
+
+```python
+@property
+def admin_password_secret_arn(self) -> T.Optional[str]:
+    return self._data.get("adminPasswordSecretArn")
+
+@property  
+def status(self) -> "NamespaceStatusType":
+    return self._data["status"]
+```
+
+### 3. Core Data Extraction Pattern
+
+Each model implements a `core_data` property that returns a standardized, minimal representation of the object. This provides:
+
+- **Consistency**: A uniform way to access essential information across different model types
+- **Serialization**: Easy conversion to dictionaries for logging, caching, or API responses
+- **Testing**: Simplified comparison and assertion in unit tests
+
+```python
+@property
+def core_data(self) -> T_KWARGS:
+    """
+    Returns a dictionary containing the essential data of the model.
+    
+    This property must be implemented by all subclasses to provide
+    a consistent minimal representation of the model's core data.
+    """
+    raise NotImplementedError
+```
+
+### Benefits of This Architecture
+
+1. **API Resilience**: By storing raw API data and accessing it through properties, the models remain stable even when AWS changes their API response structure
+2. **Memory Efficiency**: Lazy loading means expensive computations or transformations only happen when needed
+3. **Type Safety**: Properties provide explicit return types while allowing flexible internal data storage
+4. **Maintainability**: Clear separation between raw data storage and processed data access makes the code easier to understand and modify
+
+This pattern should be followed when implementing new AWS Redshift model classes to maintain consistency across the codebase.
+
 
 ## Virtual Environment Setup
 

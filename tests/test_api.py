@@ -5,6 +5,7 @@ from simple_aws_redshift import api
 
 def test():
     _ = api
+    _ = api.RedshiftServerlessNamespace
 
 
 if __name__ == "__main__":
