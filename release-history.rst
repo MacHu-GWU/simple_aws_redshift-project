@@ -21,6 +21,11 @@ x.y.z (Backlog)
 - Add the following public APIs:
     - ``simple_aws_redshift.api.redshift_serverless.RedshiftServerlessNamespace``
     - ``simple_aws_redshift.api.redshift_serverless.RedshiftServerlessNamespaceIterProxy``
+    - ``simple_aws_redshift.api.redshift_serverless.RedshiftServerlessWorkgroup``
+    - ``simple_aws_redshift.api.redshift_serverless.RedshiftServerlessWorkgroupIterProxy``
     - ``simple_aws_redshift.api.redshift_serverless.list_namespaces``
     - ``simple_aws_redshift.api.redshift_serverless.get_namespace``
     - ``simple_aws_redshift.api.redshift_serverless.delete_namespace``
+    - ``simple_aws_redshift.api.redshift_serverless.list_workgroups``
+    - ``simple_aws_redshift.api.redshift_serverless.get_workgroup``
+    - ``simple_aws_redshift.api.redshift_serverless.delete_workgroup``
