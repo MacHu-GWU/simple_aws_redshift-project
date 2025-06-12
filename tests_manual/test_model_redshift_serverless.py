@@ -3,6 +3,7 @@
 from simple_aws_redshift.model_redshift_serverless import RedshiftServerlessNamespace
 
 from simple_aws_redshift.tests.bsm import bsm
+from simple_aws_redshift.tests.test_property_helpers import verify_all_properties
 
 from rich import print as rprint
 
@@ -11,24 +12,11 @@ class TestRedshiftServerlessNamespace:
     def test(self):
         res = bsm.redshiftserverless_client.list_namespaces()
         namespaces = [
-            RedshiftServerlessNamespace(raw_data=dct) for dct in res.get("namespaces", [])
+            RedshiftServerlessNamespace(raw_data=dct)
+            for dct in res.get("namespaces", [])
         ]
         namespace = namespaces[0]
-
-        print(f"{namespace.admin_password_secret_arn = }")
-        print(f"{namespace.admin_password_secret_kms_key_id = }")
-        print(f"{namespace.admin_username = }")
-        print(f"{namespace.creation_date = }")
-        print(f"{namespace.db_name = }")
-        print(f"{namespace.default_iam_role_arn = }")
-        print(f"{namespace.iam_roles = }")
-        print(f"{namespace.kms_key_id = }")
-        print(f"{namespace.log_exports = }")
-        print(f"{namespace.namespace_arn = }")
-        print(f"{namespace.namespace_id = }")
-        print(f"{namespace.namespace_name = }")
-        print(f"{namespace.status = }")
-        rprint(f"{namespace.core_data = }")
+        verify_all_properties(RedshiftServerlessNamespace, namespace)
 
         rprint(f"{namespace.is_available = }")
         rprint(f"{namespace.is_modifying = }")

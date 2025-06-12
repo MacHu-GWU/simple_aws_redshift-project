@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+"""
+Redshift Serverless Data Models.
+"""
 
 import typing as T
 import dataclasses
@@ -33,7 +36,7 @@ class RedshiftServerlessNamespace(Base):
     raw_data: "NamespaceTypeDef" = dataclasses.field(default=REQ)
 
     @property
-    def admin_password_secret_arn(self) -> T.Optional[str]:
+    def admin_password_secret_arn(self) -> T.Union[str]:
         return self.raw_data.get("adminPasswordSecretArn")
 
     @property
