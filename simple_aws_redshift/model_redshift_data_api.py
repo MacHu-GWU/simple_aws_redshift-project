@@ -16,11 +16,152 @@ from iterproxy import IterProxy
 from .model import Base
 
 if T.TYPE_CHECKING:  # pragma: no cover
+    from mypy_boto3_redshift_data.literals import (
+        StatusStringType,
+    )
     from mypy_boto3_redshift_data.type_defs import (
+        DescribeStatementResponseTypeDef,
+        SqlParameterTypeDef,
+        SubStatementDataTypeDef,
         GetStatementResultResponseTypeDef,
         ColumnMetadataTypeDef,
         FieldTypeDef,
     )
+
+
+@dataclasses.dataclass
+class DescribeStatementResponse(Base):
+    """
+    Ref:
+
+    - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/describe_statement.html
+    """
+
+    raw_data: "DescribeStatementResponseTypeDef" = dataclasses.field(default=REQ)
+
+    @property
+    def cluster_identifier(self) -> T.Optional[str]:
+        return self.raw_data.get("ClusterIdentifier")
+
+    @property
+    def created_at(self) -> T.Optional[datetime]:
+        return self.raw_data.get("CreatedAt")
+
+    @property
+    def database(self) -> T.Optional[str]:
+        return self.raw_data.get("Database")
+
+    @property
+    def db_user(self) -> T.Optional[str]:
+        return self.raw_data.get("DbUser")
+
+    @property
+    def duration(self) -> T.Optional[int]:
+        return self.raw_data.get("Duration")
+
+    @property
+    def error(self) -> T.Optional[str]:
+        return self.raw_data.get("Error")
+
+    @property
+    def has_result_set(self) -> T.Optional[bool]:
+        return self.raw_data.get("HasResultSet")
+
+    @property
+    def id(self) -> T.Optional[str]:
+        return self.raw_data.get("Id")
+
+    @property
+    def query_parameters(self) -> T.Optional[T.List["SqlParameterTypeDef"]]:
+        return self.raw_data.get("QueryParameters")
+
+    @property
+    def query_string(self) -> T.Optional[str]:
+        return self.raw_data.get("QueryString")
+
+    @property
+    def redshift_pid(self) -> T.Optional[int]:
+        return self.raw_data.get("RedshiftPid")
+
+    @property
+    def redshift_query_id(self) -> T.Optional[int]:
+        return self.raw_data.get("RedshiftQueryId")
+
+    @property
+    def result_format(self) -> T.Optional[str]:
+        return self.raw_data.get("ResultFormat")
+
+    @property
+    def result_rows(self) -> T.Optional[int]:
+        return self.raw_data.get("ResultRows")
+
+    @property
+    def result_size(self) -> T.Optional[int]:
+        return self.raw_data.get("ResultSize")
+
+    @property
+    def secret_arn(self) -> T.Optional[str]:
+        return self.raw_data.get("SecretArn")
+
+    @property
+    def session_id(self) -> T.Optional[str]:
+        return self.raw_data.get("SessionId")
+
+    @property
+    def status(self) -> T.Optional["StatusStringType"]:
+        return self.raw_data.get("Status")
+
+    @property
+    def sub_statements(self) -> T.Optional[T.List["SubStatementDataTypeDef"]]:
+        return self.raw_data.get("SubStatements")
+
+    @property
+    def updated_at(self) -> T.Optional[datetime]:
+        return self.raw_data.get("UpdatedAt")
+
+    @property
+    def workgroup_name(self) -> T.Optional[str]:
+        return self.raw_data.get("WorkgroupName")
+
+    @property
+    def is_aborted(self) -> bool:
+        return self.status == "ABORTED"
+
+    @property
+    def is_all(self) -> bool:
+        return self.status == "ALL"
+
+    @property
+    def is_failed(self) -> bool:
+        return self.status == "FAILED"
+
+    @property
+    def is_finished(self) -> bool:
+        return self.status == "FINISHED"
+
+    @property
+    def is_picked(self) -> bool:
+        return self.status == "PICKED"
+
+    @property
+    def is_started(self) -> bool:
+        return self.status == "STARTED"
+
+    @property
+    def is_submitted(self) -> bool:
+        return self.status == "SUBMITTED"
+
+    @property
+    def core_data(self) -> T_KWARGS:
+        return {
+            "id": self.id,
+            "status": self.status,
+            "query_string": self.query_string,
+            "database": self.database,
+            "created_at": self.created_at,
+            "duration": self.duration,
+            "has_result_set": self.has_result_set,
+        }
 
 
 class RedshiftDataType(str, enum.Enum):
@@ -114,7 +255,7 @@ def extract_field_value(
 
 
 @dataclasses.dataclass
-class StatementResult(Base):
+class GetStatementResultResponse(Base):
     """
     Ref:
 
@@ -150,5 +291,5 @@ class StatementResult(Base):
         return data
 
 
-class StatementResultIterProxy(IterProxy[StatementResult]):
+class StatementResultIterProxy(IterProxy[GetStatementResultResponse]):
     pass

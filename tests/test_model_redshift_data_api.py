@@ -2,11 +2,29 @@
 
 import datetime
 from simple_aws_redshift.model_redshift_data_api import (
-    StatementResult,
+    DescribeStatementResponse,
+    GetStatementResultResponse,
 )
 from simple_aws_redshift.tests.test_property_helpers import verify_all_properties
 
 from rich import print as rprint
+
+
+class TestDescribeStatementResponse:
+    def test(self):
+        raw_data = {
+            "status": "FINISHED",
+        }
+        response = DescribeStatementResponse(raw_data=raw_data)
+        verify_all_properties(DescribeStatementResponse, response)
+
+        rprint(f"{response.is_aborted = }")
+        rprint(f"{response.is_all = }")
+        rprint(f"{response.is_failed = }")
+        rprint(f"{response.is_finished = }")
+        rprint(f"{response.is_picked = }")
+        rprint(f"{response.is_started = }")
+        rprint(f"{response.is_submitted = }")
 
 
 class TestStatementResult:
@@ -245,8 +263,8 @@ class TestStatementResult:
             ],
             "TotalNumRows": 1,
         }
-        statement_result = StatementResult(raw_data=raw_data)
-        verify_all_properties(StatementResult, statement_result)
+        statement_result = GetStatementResultResponse(raw_data=raw_data)
+        verify_all_properties(GetStatementResultResponse, statement_result)
 
         data = statement_result.to_column_oriented_data()
         rprint(data)

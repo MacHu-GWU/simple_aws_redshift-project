@@ -18,7 +18,7 @@ from func_args.api import REQ, OPT, remove_optional, BaseModel
 from .vendor.waiter import Waiter
 
 from .model_redshift_data_api import (
-    StatementResult,
+    GetStatementResultResponse,
     StatementResultIterProxy,
 )
 
@@ -181,7 +181,7 @@ def get_statement_result(
         )
         get_statement_result_response: GetStatementResultResponseTypeDef
         for get_statement_result_response in response_iterator:
-            statement_result = StatementResult(raw_data=get_statement_result_response)
+            statement_result = GetStatementResultResponse(raw_data=get_statement_result_response)
             yield statement_result
 
     return StatementResultIterProxy(func())
