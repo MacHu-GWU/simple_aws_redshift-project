@@ -17,6 +17,8 @@ if T.TYPE_CHECKING:  # pragma: no cover
     from mypy_boto3_redshift_serverless.type_defs import (
         NamespaceTypeDef,
         NamespaceStatusType,
+        WorkgroupTypeDef,
+        WorkgroupStatusType,
     )
 
 
@@ -84,8 +86,8 @@ class RedshiftServerlessNamespace(Base):
         return self.raw_data.get("namespaceName")
 
     @property
-    def status(self) -> "NamespaceStatusType":
-        return self.raw_data["status"]
+    def status(self) -> T.Optional["NamespaceStatusType"]:
+        return self.raw_data.get("status")
 
     @property
     def core_data(self) -> T_KWARGS:
@@ -110,5 +112,140 @@ class RedshiftServerlessNamespace(Base):
         return self.status == "DELETING"
 
 
+@dataclasses.dataclass
+class RedshiftServerlessWorkgroup(Base):
+    """
+    Redshift Serverless Workgroup object.
+
+    Ref:
+
+    - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/get_workgroup.html
+    - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/list_workgroups.html
+
+    :param raw_data: The raw data from the API response, stored as a dictionary.
+    """
+
+    raw_data: "WorkgroupTypeDef" = dataclasses.field(default=REQ)
+
+    @property
+    def base_capacity(self) -> T.Optional[int]:
+        return self.raw_data.get("baseCapacity")
+
+    @property
+    def config_parameters(self) -> T.Optional[T.List[T.Dict[str, str]]]:
+        return self.raw_data.get("configParameters")
+
+    @property
+    def creation_date(self) -> T.Optional[datetime.datetime]:
+        return self.raw_data.get("creationDate")
+
+    @property
+    def cross_account_vpcs(self) -> T.Optional[T.List[str]]:
+        return self.raw_data.get("crossAccountVpcs")
+
+    @property
+    def custom_domain_certificate_arn(self) -> T.Optional[str]:
+        return self.raw_data.get("customDomainCertificateArn")
+
+    @property
+    def custom_domain_certificate_expiry_time(self) -> T.Optional[datetime.datetime]:
+        return self.raw_data.get("customDomainCertificateExpiryTime")
+
+    @property
+    def custom_domain_name(self) -> T.Optional[str]:
+        return self.raw_data.get("customDomainName")
+
+    @property
+    def endpoint(self) -> T.Optional[T.Dict[str, T.Any]]:
+        return self.raw_data.get("endpoint")
+
+    @property
+    def enhanced_vpc_routing(self) -> T.Optional[bool]:
+        return self.raw_data.get("enhancedVpcRouting")
+
+    @property
+    def ip_address_type(self) -> T.Optional[str]:
+        return self.raw_data.get("ipAddressType")
+
+    @property
+    def max_capacity(self) -> T.Optional[int]:
+        return self.raw_data.get("maxCapacity")
+
+    @property
+    def namespace_name(self) -> T.Optional[str]:
+        return self.raw_data.get("namespaceName")
+
+    @property
+    def port(self) -> T.Optional[int]:
+        return self.raw_data.get("port")
+
+    @property
+    def publicly_accessible(self) -> T.Optional[bool]:
+        return self.raw_data.get("publiclyAccessible")
+
+    @property
+    def security_group_ids(self) -> T.Optional[T.List[str]]:
+        return self.raw_data.get("securityGroupIds")
+
+    @property
+    def status(self) -> T.Optional["WorkgroupStatusType"]:
+        return self.raw_data.get("status")
+
+    @property
+    def subnet_ids(self) -> T.Optional[T.List[str]]:
+        return self.raw_data.get("subnetIds")
+
+    @property
+    def workgroup_arn(self) -> T.Optional[str]:
+        return self.raw_data.get("workgroupArn")
+
+    @property
+    def workgroup_id(self) -> T.Optional[str]:
+        return self.raw_data.get("workgroupId")
+
+    @property
+    def workgroup_name(self) -> T.Optional[str]:
+        return self.raw_data.get("workgroupName")
+
+    @property
+    def core_data(self) -> T_KWARGS:
+        return {
+            "workgroup_name": self.workgroup_name,
+            "workgroup_id": self.workgroup_id,
+            "workgroup_arn": self.workgroup_arn,
+            "status": self.status,
+            "namespace_name": self.namespace_name,
+            "creation_date": self.creation_date,
+        }
+
+    @property
+    def is_available(self) -> bool:
+        return self.status == "AVAILABLE"
+
+    @property
+    def is_creating(self) -> bool:
+        return self.status == "CREATING"
+
+    @property
+    def is_modifying(self) -> bool:
+        return self.status == "MODIFYING"
+
+    @property
+    def is_deleting(self) -> bool:
+        return self.status == "DELETING"
+
+    @property
+    def endpoint_address(self) -> str:
+        return self.endpoint["address"]
+
+    @property
+    def endpoint_port(self) -> int:
+        return self.endpoint["port"]
+
+
 class RedshiftServerlessNamespaceIterProxy(IterProxy[RedshiftServerlessNamespace]):
+    pass
+
+
+class RedshiftServerlessWorkgroupIterProxy(IterProxy[RedshiftServerlessWorkgroup]):
     pass
