@@ -2,6 +2,8 @@
 simple_aws_redshift.egg-info/
 docs/source/**/index.md
 tmp/
+cdk.out/
+cdk.context.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

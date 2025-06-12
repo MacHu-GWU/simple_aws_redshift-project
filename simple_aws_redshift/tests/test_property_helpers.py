@@ -31,7 +31,8 @@ def verify_all_properties(
         if isinstance(member, property) or isinstance(member, cached_property):
             try:
                 # Access the property to test it
-                getattr(instance, name)
+                value = getattr(instance, name)
+                print(f"{klass.__name__}.{name} = {value}")  # Print the property name and value
             except Exception as e:
                 # Re-raise with more context about which property failed
                 raise RuntimeError(

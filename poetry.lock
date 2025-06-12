@@ -37,7 +37,7 @@ description = "Classes Without Boilerplate"
 optional = true
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "extra == \"doc\""
+markers = "extra == \"test\" or extra == \"doc\""
 files = [
     {file = "attrs-25.3.0-py3-none-any.whl", hash = "sha256:427318ce031701fea540783410126f03899a97ffc6f61596ad581ac2e40e3bc3"},
     {file = "attrs-25.3.0.tar.gz", hash = "sha256:75d7cefc7fb576747b2c81b4442d4d4a1ce0900973527c011d1030fd3bf4af1b"},
@@ -70,6 +70,82 @@ attrs = ">=21.3.0"
 [package.extras]
 docs = ["Sphinx (==5.3.0)", "docfly (==2.0.1)", "furo (==2023.03.27)", "ipython (==8.10.0)", "nbsphinx (==0.8.12)", "pygments (==2.15.1)", "rstobj (==1.2.1)", "sphinx-copybutton (==0.5.1)", "sphinx-design (==0.5.0)", "sphinx-jinja (==2.0.2)"]
 tests = ["cached-property (>=1.5.2) ; python_version < \"3.8\"", "pytest", "pytest-cov"]
+
+[[package]]
+name = "aws-cdk-asset-awscli-v1"
+version = "2.2.240"
+description = "A library that contains the AWS CLI for use in Lambda Layers"
+optional = true
+python-versions = "~=3.9"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "aws_cdk_asset_awscli_v1-2.2.240-py3-none-any.whl", hash = "sha256:bcfa7124d40b9180697489d6875ed1c34a5dbb4db6eaad68148664c0d56b5af1"},
+    {file = "aws_cdk_asset_awscli_v1-2.2.240.tar.gz", hash = "sha256:73a0787fedcc7e2010779593aa0c66398a4bc8e2291c918b07edc11ffd092612"},
+]
+
+[package.dependencies]
+jsii = ">=1.112.0,<2.0.0"
+publication = ">=0.0.3"
+typeguard = ">=2.13.3,<4.3.0"
+
+[[package]]
+name = "aws-cdk-asset-node-proxy-agent-v6"
+version = "2.1.0"
+description = "@aws-cdk/asset-node-proxy-agent-v6"
+optional = true
+python-versions = "~=3.8"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "aws_cdk.asset_node_proxy_agent_v6-2.1.0-py3-none-any.whl", hash = "sha256:24a388b69a44d03bae6dbf864c4e25ba650d4b61c008b4568b94ffbb9a69e40e"},
+    {file = "aws_cdk_asset_node_proxy_agent_v6-2.1.0.tar.gz", hash = "sha256:1f292c0631f86708ba4ee328b3a2b229f7e46ea1c79fbde567ee9eb119c2b0e2"},
+]
+
+[package.dependencies]
+jsii = ">=1.103.1,<2.0.0"
+publication = ">=0.0.3"
+typeguard = ">=2.13.3,<5.0.0"
+
+[[package]]
+name = "aws-cdk-cloud-assembly-schema"
+version = "39.2.20"
+description = "Cloud Assembly Schema"
+optional = true
+python-versions = "~=3.8"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "aws_cdk.cloud_assembly_schema-39.2.20-py3-none-any.whl", hash = "sha256:7b1ab0593fbfaac4ff0d5d0aa6a3b54185e0286f4aa68376557cac2d50c59183"},
+    {file = "aws_cdk_cloud_assembly_schema-39.2.20.tar.gz", hash = "sha256:e110b22f961d15c25a9099590375280c0b45637c8325ade9b570a0ef11e6e907"},
+]
+
+[package.dependencies]
+jsii = ">=1.106.0,<2.0.0"
+publication = ">=0.0.3"
+typeguard = ">=2.13.3,<4.3.0"
+
+[[package]]
+name = "aws-cdk-lib"
+version = "2.179.0"
+description = "Version 2 of the AWS Cloud Development Kit library"
+optional = true
+python-versions = "~=3.8"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "aws_cdk_lib-2.179.0-py3-none-any.whl", hash = "sha256:1d7b88ee69067b8d58dac9eeb6697bbaf5d5c032a3070898389c41e7c4f3e3d7"},
+    {file = "aws_cdk_lib-2.179.0.tar.gz", hash = "sha256:b653a55754f4020a4b36e4ae183d213e76e27b18b842cbf9e430e9eccb700550"},
+]
+
+[package.dependencies]
+"aws-cdk.asset-awscli-v1" = ">=2.2.208,<3.0.0"
+"aws-cdk.asset-node-proxy-agent-v6" = ">=2.1.0,<3.0.0"
+"aws-cdk.cloud-assembly-schema" = ">=39.2.0,<40.0.0"
+constructs = ">=10.0.0,<11.0.0"
+jsii = ">=1.106.0,<2.0.0"
+publication = ">=0.0.3"
+typeguard = ">=2.13.3,<4.3.0"
 
 [[package]]
 name = "babel"
@@ -205,6 +281,7 @@ files = [
 [package.dependencies]
 botocore-stubs = "*"
 mypy-boto3-redshift = {version = ">=1.38.0,<1.39.0", optional = true, markers = "extra == \"redshift\""}
+mypy-boto3-redshift-data = {version = ">=1.38.0,<1.39.0", optional = true, markers = "extra == \"redshift-data\""}
 mypy-boto3-redshift-serverless = {version = ">=1.38.0,<1.39.0", optional = true, markers = "extra == \"redshift-serverless\""}
 types-s3transfer = "*"
 typing-extensions = {version = ">=4.1.0", markers = "python_version < \"3.12\""}
@@ -690,6 +767,80 @@ uv = ["uv (>=0.1.18)"]
 virtualenv = ["virtualenv (>=20.0.35)"]
 
 [[package]]
+name = "cattrs"
+version = "24.1.3"
+description = "Composable complex class support for attrs and dataclasses."
+optional = true
+python-versions = ">=3.8"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "cattrs-24.1.3-py3-none-any.whl", hash = "sha256:adf957dddd26840f27ffbd060a6c4dd3b2192c5b7c2c0525ef1bd8131d8a83f5"},
+    {file = "cattrs-24.1.3.tar.gz", hash = "sha256:981a6ef05875b5bb0c7fb68885546186d306f10f0f6718fe9b96c226e68821ff"},
+]
+
+[package.dependencies]
+attrs = ">=23.1.0"
+exceptiongroup = {version = ">=1.1.1", markers = "python_version < \"3.11\""}
+typing-extensions = {version = ">=4.1.0,<4.6.3 || >4.6.3", markers = "python_version < \"3.11\""}
+
+[package.extras]
+bson = ["pymongo (>=4.4.0)"]
+cbor2 = ["cbor2 (>=5.4.6)"]
+msgpack = ["msgpack (>=1.0.5)"]
+msgspec = ["msgspec (>=0.18.5) ; implementation_name == \"cpython\""]
+orjson = ["orjson (>=3.9.2) ; implementation_name == \"cpython\""]
+pyyaml = ["pyyaml (>=6.0)"]
+tomlkit = ["tomlkit (>=0.11.8)"]
+ujson = ["ujson (>=5.7.0)"]
+
+[[package]]
+name = "cdk-mate"
+version = "0.1.6"
+description = "A comprehensive Python toolkit for simplifying AWS CDK deployment workflows across multiple stacks"
+optional = true
+python-versions = "<4.0,>=3.9"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "cdk_mate-0.1.6-py3-none-any.whl", hash = "sha256:7b3e6ca74c5292b280123dbc73a165fdc0fb9ef0ecf69eb104c30404c0e17f28"},
+    {file = "cdk_mate-0.1.6.tar.gz", hash = "sha256:35155368233c3f6fcbc1b674f86daa017732af5d79e4055bab58bb045c3bf600"},
+]
+
+[package.dependencies]
+aws-cdk-lib = ">=2.179.0,<3.0.0"
+boto-session-manager = ">=1.7.2,<2.0.0"
+boto3 = ">=1.35.99,<2.0.0"
+func_args = ">=1.0.0,<2.0.0"
+
+[package.extras]
+dev = ["build (>=1.2.1,<2.0.0)", "rich (>=13.8.1,<14.0.0)", "twine (>=6.0.0,<7.0.0)", "wheel (>=0.45.0,<1.0.0)"]
+doc = ["Sphinx (>=7.4.7,<8.0.0)", "docfly (==3.0.0)", "furo (==2024.8.6)", "ipython (>=8.18.1,<8.19.0)", "nbsphinx (>=0.8.12,<1.0.0)", "pygments (>=2.18.0,<3.0.0)", "rstobj (==1.2.1)", "sphinx-copybutton (>=0.5.2,<1.0.0)", "sphinx-design (>=0.6.1,<1.0.0)", "sphinx-jinja (>=2.0.2,<3.0.0)"]
+test = ["moto (>=5.0.28,<6.0.0)", "pytest (>=8.2.2,<9.0.0)", "pytest-cov (>=6.0.0,<7.0.0)"]
+
+[[package]]
+name = "cdkit"
+version = "0.1.3"
+description = "A comprehensive AWS CDK utility library for creating type-safe, parameter-managed infrastructure configurations with pre-built vertical solution stacks."
+optional = true
+python-versions = "<4.0,>=3.9"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "cdkit-0.1.3-py3-none-any.whl", hash = "sha256:4b8c5620e4ce71985782314bde2af32b8d86378e588b0974667d1299b6088d8c"},
+    {file = "cdkit-0.1.3.tar.gz", hash = "sha256:3dfb71392b2390669f0ca0f89e88a734ad86b432bb10d8ac52039b2e1dcbfe72"},
+]
+
+[package.dependencies]
+aws-cdk-lib = ">=2.179.0,<3.0.0"
+func-args = ">=1.0.0,<2.0.0"
+
+[package.extras]
+dev = ["build (>=1.2.1,<2.0.0)", "jinja2 (>=3.0.3,<4.0.0)", "requests (>=2.31.0,<3.0.0)", "rich (>=13.8.1,<14.0.0)", "twine (>=6.0.0,<7.0.0)", "wheel (>=0.45.0,<1.0.0)"]
+doc = ["Sphinx (>=7.4.7,<8.0.0)", "docfly (==3.0.0)", "furo (==2024.8.6)", "ipython (>=8.18.1,<8.19.0)", "nbsphinx (>=0.8.12,<1.0.0)", "pygments (>=2.18.0,<3.0.0)", "rstobj (==1.2.1)", "sphinx-copybutton (>=0.5.2,<1.0.0)", "sphinx-design (>=0.6.1,<1.0.0)", "sphinx-jinja (>=2.0.2,<3.0.0)"]
+test = ["boto-session-manager (>=1.7.2,<2.0.0)", "boto3 (>=1.35.99,<2.0.0)", "cdk-mate (>=0.1.4,<1.0.0)", "moto (>=5.0.28,<6.0.0)", "pytest (>=8.2.2,<9.0.0)", "pytest-cov (>=6.0.0,<7.0.0)"]
+
+[[package]]
 name = "certifi"
 version = "2025.1.31"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -898,6 +1049,24 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+
+[[package]]
+name = "constructs"
+version = "10.4.2"
+description = "A programming model for software-defined state"
+optional = true
+python-versions = "~=3.8"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "constructs-10.4.2-py3-none-any.whl", hash = "sha256:1f0f59b004edebfde0f826340698b8c34611f57848139b7954904c61645f13c1"},
+    {file = "constructs-10.4.2.tar.gz", hash = "sha256:ce54724360fffe10bab27d8a081844eb81f5ace7d7c62c84b719c49f164d5307"},
+]
+
+[package.dependencies]
+jsii = ">=1.102.0,<2.0.0"
+publication = ">=0.0.3"
+typeguard = ">=2.13.3,<2.14.0"
 
 [[package]]
 name = "coverage"
@@ -1252,6 +1421,30 @@ test = ["flufl.flake8", "importlib_resources (>=1.3) ; python_version < \"3.9\""
 type = ["pytest-mypy"]
 
 [[package]]
+name = "importlib-resources"
+version = "6.5.2"
+description = "Read resources from Python packages"
+optional = true
+python-versions = ">=3.9"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "importlib_resources-6.5.2-py3-none-any.whl", hash = "sha256:789cfdc3ed28c78b67a06acb8126751ced69a3d5f79c095a98298cd8a760ccec"},
+    {file = "importlib_resources-6.5.2.tar.gz", hash = "sha256:185f87adef5bcc288449d98fb4fba07cea78bc036455dd44c5fc4a2fe78fed2c"},
+]
+
+[package.dependencies]
+zipp = {version = ">=3.1.0", markers = "python_version < \"3.10\""}
+
+[package.extras]
+check = ["pytest-checkdocs (>=2.4)", "pytest-ruff (>=0.2.1) ; sys_platform != \"cygwin\""]
+cover = ["pytest-cov"]
+doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+enabler = ["pytest-enabler (>=2.2)"]
+test = ["jaraco.test (>=5.4)", "pytest (>=6,!=8.1.*)", "zipp (>=3.17)"]
+type = ["pytest-mypy"]
+
+[[package]]
 name = "iniconfig"
 version = "2.1.0"
 description = "brain-dead simple config-ini parsing"
@@ -1452,6 +1645,28 @@ files = [
     {file = "jmespath-1.0.1-py3-none-any.whl", hash = "sha256:02e2e4cc71b5bcab88332eebf907519190dd9e6e82107fa7f83b1003a6252980"},
     {file = "jmespath-1.0.1.tar.gz", hash = "sha256:90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"},
 ]
+
+[[package]]
+name = "jsii"
+version = "1.112.0"
+description = "Python client for jsii runtime"
+optional = true
+python-versions = "~=3.9"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "jsii-1.112.0-py3-none-any.whl", hash = "sha256:6510c223074d9b206fd0570849a791e4d9ecfff7ffe68428de73870cea9f55a1"},
+    {file = "jsii-1.112.0.tar.gz", hash = "sha256:6b7d19f361c2565b76828ecbe8cbed8b8d6028a82aa98a46b206a4ee5083157e"},
+]
+
+[package.dependencies]
+attrs = ">=21.2,<26.0"
+cattrs = ">=1.8,<24.2"
+importlib_resources = ">=5.2.0"
+publication = ">=0.0.3"
+python-dateutil = "*"
+typeguard = ">=2.13.3,<4.5.0"
+typing_extensions = ">=3.8,<5.0"
 
 [[package]]
 name = "jsonschema"
@@ -1803,6 +2018,22 @@ files = [
 typing-extensions = {version = "*", markers = "python_version < \"3.12\""}
 
 [[package]]
+name = "mypy-boto3-redshift-data"
+version = "1.38.0"
+description = "Type annotations for boto3 RedshiftDataAPIService 1.38.0 service generated with mypy-boto3-builder 8.10.1"
+optional = true
+python-versions = ">=3.8"
+groups = ["main"]
+markers = "extra == \"dev\""
+files = [
+    {file = "mypy_boto3_redshift_data-1.38.0-py3-none-any.whl", hash = "sha256:65352a25a2ea81c117a83afc7b97a0fcb9561bbd8bee59215cd3118dd46c8271"},
+    {file = "mypy_boto3_redshift_data-1.38.0.tar.gz", hash = "sha256:d260fd688eca19b6e349ab489f692a37b72a374e6602be45848697022e893365"},
+]
+
+[package.dependencies]
+typing-extensions = {version = "*", markers = "python_version < \"3.12\""}
+
+[[package]]
 name = "mypy-boto3-redshift-serverless"
 version = "1.38.0"
 description = "Type annotations for boto3 RedshiftServerless 1.38.0 service generated with mypy-boto3-builder 8.10.1"
@@ -2098,6 +2329,19 @@ markers = "extra == \"doc\" and sys_platform != \"win32\""
 files = [
     {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
     {file = "ptyprocess-0.7.0.tar.gz", hash = "sha256:5c5d0a3b48ceee0b48485e0c26037c0acd7d29765ca3fbb5cb3831d347423220"},
+]
+
+[[package]]
+name = "publication"
+version = "0.0.3"
+description = "Publication helps you maintain public-api-friendly modules by preventing unintentional access to private implementation details via introspection."
+optional = true
+python-versions = "*"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "publication-0.0.3-py2.py3-none-any.whl", hash = "sha256:0248885351febc11d8a1098d5c8e3ab2dabcf3e8c0c96db1e17ecd12b53afbe6"},
+    {file = "publication-0.0.3.tar.gz", hash = "sha256:68416a0de76dddcdd2930d1c8ef853a743cc96c82416c4e4d3b5d901c6276dc4"},
 ]
 
 [[package]]
@@ -3168,6 +3412,23 @@ urllib3 = ">=1.26.0"
 keyring = ["keyring (>=15.1)"]
 
 [[package]]
+name = "typeguard"
+version = "2.13.3"
+description = "Run-time type checker for Python"
+optional = true
+python-versions = ">=3.5.3"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "typeguard-2.13.3-py3-none-any.whl", hash = "sha256:5e3e3be01e887e7eafae5af63d1f36c849aaa94e3a0112097312aabfa16284f1"},
+    {file = "typeguard-2.13.3.tar.gz", hash = "sha256:00edaa8da3a133674796cf5ea87d9f4b4c367d77476e185e80251cc13dfbb8c4"},
+]
+
+[package.extras]
+doc = ["sphinx-autodoc-typehints (>=1.2.0)", "sphinx-rtd-theme"]
+test = ["mypy ; platform_python_implementation != \"PyPy\"", "pytest", "typing-extensions"]
+
+[[package]]
 name = "types-awscrt"
 version = "0.27.2"
 description = "Type annotations and code completion for awscrt"
@@ -3200,7 +3461,7 @@ description = "Backported and Experimental Type Hints for Python 3.8+"
 optional = true
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "(extra == \"dev\" or extra == \"test\" or extra == \"doc\") and (extra == \"dev\" or extra == \"doc\" or python_version < \"3.11\") and (extra == \"doc\" or python_version < \"3.12\")"
+markers = "(extra == \"dev\" or extra == \"test\" or extra == \"doc\") and (extra == \"test\" or extra == \"doc\" or python_version < \"3.12\")"
 files = [
     {file = "typing_extensions-4.13.0-py3-none-any.whl", hash = "sha256:c8dd92cc0d6425a97c18fbb9d1954e5ff92c1ca881a309c45f06ebc0b79058e5"},
     {file = "typing_extensions-4.13.0.tar.gz", hash = "sha256:0a4ac55a5820789d87e297727d229866c9650f6521b64206413c4fbada24d95b"},
@@ -3324,7 +3585,7 @@ description = "Backport of pathlib-compatible object wrapper for zip files"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "(python_version < \"3.10\" or extra == \"dev\") and (python_full_version < \"3.10.2\" or platform_machine != \"ppc64le\" and platform_machine != \"s390x\") and python_version < \"3.12\" and (extra == \"dev\" or extra == \"doc\")"
+markers = "(python_version < \"3.10\" or extra == \"dev\") and (python_full_version < \"3.10.2\" or platform_machine != \"ppc64le\" and platform_machine != \"s390x\") and python_version < \"3.12\" and (extra == \"dev\" or extra == \"doc\" or extra == \"test\")"
 files = [
     {file = "zipp-3.21.0-py3-none-any.whl", hash = "sha256:ac1bbe05fd2991f160ebce24ffbac5f6d11d83dc90891255885223d42b3cd931"},
     {file = "zipp-3.21.0.tar.gz", hash = "sha256:2c9958f6430a2040341a52eb608ed6dd93ef4392e02ffe219417c1b28b5dd1f4"},
@@ -3342,9 +3603,9 @@ type = ["pytest-mypy"]
 auto = []
 dev = ["boto3-stubs", "build", "rich", "twine", "wheel"]
 doc = ["Sphinx", "docfly", "furo", "ipython", "nbsphinx", "pygments", "rstobj", "sphinx-copybutton", "sphinx-design", "sphinx-jinja"]
-test = ["boto3", "boto_session_manager", "moto", "pytest", "pytest-cov", "rich"]
+test = ["aws-cdk-lib", "boto3", "boto_session_manager", "cdk_mate", "cdkit", "moto", "pytest", "pytest-cov", "rich"]
 
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "3f6e242e0f306d200bec91b2207af12cee625675ab7233e99b4d8c1238d5e65c"
+content-hash = "47bfc2962a513260d09fd10cce163a4daf04e8dea1da9fda7b728313efe8010d"
