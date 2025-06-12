@@ -88,6 +88,7 @@ test = [
     "boto3>=1.37.38,<2.0.0", # Amazon Web Services SDK for Python
     "boto_session_manager>=1.8.1,<2.0.0", # Boto3 session manager for AWS
     "moto>=5.1.5,<6.0.0", # Mock AWS services for testing
+    "rich>=13.8.1,<14.0.0", # pretty print
 ]
 
 # ------------------------------------------------------------------------------

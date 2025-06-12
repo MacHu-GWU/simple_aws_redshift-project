@@ -11,5 +11,8 @@ sub packages and modules
     :maxdepth: 1
 
     api <api>
+    client_redshift_serverless <client_redshift_serverless>
     model <model>
+    model_redshift_serverless <model_redshift_serverless>
+    redshift_serverless_api <redshift_serverless_api>
     

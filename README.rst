@@ -50,7 +50,7 @@ Welcome to ``simple_aws_redshift`` Documentation
 .. image:: https://simple-aws-redshift.readthedocs.io/en/latest/_static/simple_aws_redshift-logo.png
     :target: https://simple-aws-redshift.readthedocs.io/en/latest/
 
-Documentation for ``simple_aws_redshift``.
+``simple_aws_redshift`` is a Pythonic library that provides a simplified, high-level interface for AWS Redshift operations. Built on top of boto3, it offers intuitive data models, property-based access patterns, and comprehensive type hints to make working with Redshift resources more developer-friendly and maintainable.
 
 
 .. _install:

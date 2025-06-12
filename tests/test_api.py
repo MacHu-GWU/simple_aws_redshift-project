@@ -5,7 +5,11 @@ from simple_aws_redshift import api
 
 def test():
     _ = api
-    _ = api.RedshiftServerlessNamespace
+    _ = api.redshift_serverless.RedshiftServerlessNamespace
+    _ = api.redshift_serverless.RedshiftServerlessNamespaceIterProxy
+    _ = api.redshift_serverless.list_namespaces
+    _ = api.redshift_serverless.get_namespace
+    _ = api.redshift_serverless.delete_namespace
 
 
 if __name__ == "__main__":
