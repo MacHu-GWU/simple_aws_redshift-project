@@ -11,7 +11,7 @@ class TestRedshiftServerlessNamespace:
     def test(self):
         res = bsm.redshiftserverless_client.list_namespaces()
         namespaces = [
-            RedshiftServerlessNamespace(_data=dct) for dct in res.get("namespaces", [])
+            RedshiftServerlessNamespace(raw_data=dct) for dct in res.get("namespaces", [])
         ]
         namespace = namespaces[0]
 

@@ -5,7 +5,7 @@ import typing as T
 import dataclasses
 import datetime
 
-from func_args.api import REQ, T_KWARGS
+from func_args.api import T_KWARGS, REQ
 from iterproxy import IterProxy
 
 from .model import Base
@@ -30,59 +30,59 @@ class RedshiftServerlessNamespace(Base):
     :param _data: The raw data from the API response, stored as a dictionary.
     """
 
-    _data: "NamespaceTypeDef" = dataclasses.field(default=REQ)
+    raw_data: "NamespaceTypeDef" = dataclasses.field(default=REQ)
 
     @property
     def admin_password_secret_arn(self) -> T.Optional[str]:
-        return self._data.get("adminPasswordSecretArn")
+        return self.raw_data.get("adminPasswordSecretArn")
 
     @property
     def admin_password_secret_kms_key_id(self) -> T.Optional[str]:
-        return self._data.get("adminPasswordSecretKmsKeyId")
+        return self.raw_data.get("adminPasswordSecretKmsKeyId")
 
     @property
     def admin_username(self) -> T.Optional[str]:
-        return self._data.get("adminUsername")
+        return self.raw_data.get("adminUsername")
 
     @property
     def creation_date(self) -> T.Optional[datetime.datetime]:
-        return self._data.get("creationDate")
+        return self.raw_data.get("creationDate")
 
     @property
     def db_name(self) -> T.Optional[str]:
-        return self._data.get("dbName")
+        return self.raw_data.get("dbName")
 
     @property
     def default_iam_role_arn(self) -> T.Optional[str]:
-        return self._data.get("defaultIamRoleArn")
+        return self.raw_data.get("defaultIamRoleArn")
 
     @property
     def iam_roles(self) -> T.Optional[T.List[str]]:
-        return self._data.get("iamRoles")
+        return self.raw_data.get("iamRoles")
 
     @property
     def kms_key_id(self) -> T.Optional[str]:
-        return self._data.get("kmsKeyId")
+        return self.raw_data.get("kmsKeyId")
 
     @property
     def log_exports(self) -> T.Optional[T.List[str]]:
-        return self._data.get("logExports")
+        return self.raw_data.get("logExports")
 
     @property
     def namespace_arn(self) -> T.Optional[str]:
-        return self._data.get("namespaceArn")
+        return self.raw_data.get("namespaceArn")
 
     @property
     def namespace_id(self) -> T.Optional[str]:
-        return self._data.get("namespaceId")
+        return self.raw_data.get("namespaceId")
 
     @property
     def namespace_name(self) -> T.Optional[str]:
-        return self._data.get("namespaceName")
+        return self.raw_data.get("namespaceName")
 
     @property
     def status(self) -> "NamespaceStatusType":
-        return self._data["status"]
+        return self.raw_data["status"]
 
     @property
     def core_data(self) -> T_KWARGS:

@@ -32,11 +32,13 @@ by the native boto3 AWS Redshift API.
 
 import dataclasses
 
-from func_args.api import T_KWARGS, BaseModel
+from func_args.api import T_KWARGS, REQ, BaseModel
 
 
 @dataclasses.dataclass
 class Base(BaseModel):
+    raw_data: T_KWARGS = dataclasses.field(default=REQ)
+
     @property
     def core_data(self) -> T_KWARGS:
         """

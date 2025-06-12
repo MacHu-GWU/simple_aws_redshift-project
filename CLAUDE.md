@@ -4,6 +4,8 @@ This document provides a comprehensive guide to the codebase structure and archi
 
 ## Overview
 
+See the key design pattern used in this repo at https://sanhehu.atlassian.net/wiki/external/ZmMxMzVlNDM0YzU2NDA4MjgyMDhlMWM0NTNhZjgwODQ
+
 ## AWS Redshift Model Architecture
 
 The AWS Redshift models follow a sophisticated lazy-loading architecture with three key design patterns:

@@ -34,7 +34,7 @@ def list_namespaces(
         )
         for response in response_iterator:
             for dct in response.get("namespaces", []):
-                yield RedshiftServerlessNamespace(_data=dct)
+                yield RedshiftServerlessNamespace(raw_data=dct)
 
     return RedshiftServerlessNamespaceIterProxy(func())
 
@@ -52,7 +52,7 @@ def get_namespace(
         response = redshift_serverless_client.get_namespace(
             namespaceName=namespace_name
         )
-        return RedshiftServerlessNamespace(_data=response["namespace"])
+        return RedshiftServerlessNamespace(raw_data=response["namespace"])
     except botocore.exceptions.ClientError as e:
         if e.response["Error"]["Code"] == "ResourceNotFoundException":
             return None
