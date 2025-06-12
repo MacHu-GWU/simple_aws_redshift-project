@@ -14,11 +14,13 @@ from iterproxy import IterProxy
 from .model import Base
 
 if T.TYPE_CHECKING:  # pragma: no cover
+    from mypy_boto3_redshift_serverless.literals import (
+        NamespaceStatusType,
+        WorkgroupStatusType,
+    )
     from mypy_boto3_redshift_serverless.type_defs import (
         NamespaceTypeDef,
-        NamespaceStatusType,
         WorkgroupTypeDef,
-        WorkgroupStatusType,
     )
 
 
