@@ -5,6 +5,9 @@ from simple_aws_redshift import api
 
 def test():
     _ = api
+
+    _ = api.RedshiftServerlessConnectionParams
+
     _ = api.redshift_serverless.RedshiftServerlessNamespace
     _ = api.redshift_serverless.RedshiftServerlessNamespaceIterProxy
     _ = api.redshift_serverless.RedshiftServerlessWorkgroup
@@ -15,6 +18,17 @@ def test():
     _ = api.redshift_serverless.list_workgroups
     _ = api.redshift_serverless.get_workgroup
     _ = api.redshift_serverless.delete_workgroup
+
+    _ = api.redshift_data_api.DescribeStatementResponse
+    _ = api.redshift_data_api.RedshiftDataType
+    _ = api.redshift_data_api.type_to_field_mapping
+    _ = api.redshift_data_api.extract_field_raw_value
+    _ = api.redshift_data_api.extract_field_python_native_value
+    _ = api.redshift_data_api.GetStatementResultResponse
+    _ = api.redshift_data_api.GetStatementResultResponseIterProxy
+    _ = api.redshift_data_api.RunSqlResult
+    _ = api.redshift_data_api.run_sql
+    _ = api.redshift_data_api.get_statement_result
 
 
 if __name__ == "__main__":

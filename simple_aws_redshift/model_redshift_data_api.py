@@ -231,22 +231,33 @@ type_to_field_mapping = {
 }
 
 
-def extract_field_value(
+def extract_field_raw_value(
     column_metadata: "ColumnMetadataTypeDef",
     field: "FieldTypeDef",
 ) -> T.Any:
     """
-    Extracts the native Python value from a Redshift Data API field.
+    Extracts the raw value from a Redshift Data API field.
     """
     type_name = column_metadata["typeName"]
     key = type_to_field_mapping[type_name]
     try:
         raw_value = field[key]
+        return raw_value
     except KeyError:
         if field.get("isNull", False):
             return None
         else:  # pragma: no cover
             return None
+
+
+def extract_field_python_native_value(
+    column_metadata: "ColumnMetadataTypeDef",
+    raw_value: T.Any,
+) -> T.Any:
+    """
+    Extracts the native Python value from a Redshift Data API field.
+    """
+    type_name = column_metadata["typeName"]
     if type_name in [
         RedshiftDataType.TIMESTAMP.value,
         RedshiftDataType.TIMESTAMPTZ.value,
@@ -298,8 +309,9 @@ class GetStatementResultResponse(Base):
         data = {column_metadata["name"]: [] for column_metadata in self.column_metadata}
         for record in self.records:
             for column_meta, field in zip(self.column_metadata, record):
-                value = extract_field_value(column_meta, field)
-                data[column_meta["name"]].append(value)
+                raw_value = extract_field_raw_value(column_meta, field)
+                native_value = extract_field_python_native_value(column_meta, raw_value)
+                data[column_meta["name"]].append(native_value)
         return data
 
 

@@ -72,6 +72,7 @@ def run_sql(
     delay: int = 1,
     timeout: int = 10,
     verbose: bool = False,
+    raises_on_error: bool = True,
 ):
     """
     Run redshift SQL statement using Data API and get the results. It will
@@ -82,21 +83,25 @@ def run_sql(
 
     In other words, this function is a human-friendly wrapper of the Data API.
 
-    :param rs_data_client: boto3.client("redshift-data") object
-    :param database: database name.
+    :param redshift_data_api_client: boto3.client("redshift-data") object
     :param sql: SQL statement you want to execute.
-    :param cluster_id: cluster id. this is for Redshift provisioned cluster only.
-    :param workgroup_name: workgroup name. this is for Redshift serverless only.
+    :param client_token: Unique identifier for the request to ensure idempotency.
+    :param cluster_identifier: cluster identifier. this is for Redshift provisioned cluster only.
+    :param database: database name.
+    :param db_user: database user name.
+    :param parameters: Parameters for the SQL statement.
+    :param result_format: Format of the result set (JSON or CSV).
+    :param secret_arn: ARN of the secret containing database credentials.
+    :param session_id: Database session identifier.
+    :param session_keep_alive_seconds: Number of seconds to keep the session alive.
     :param statement_name: statement name. a human-friendly name you want to give
         to this SQL statement.
+    :param with_event: Whether to send an event to Amazon EventBridge.
+    :param workgroup_name: workgroup name. this is for Redshift serverless only.
     :param delay: how many seconds to wait between each long polling.
     :param timeout: how many seconds to wait before timeout.
-    :param max_items: maximum number of items to return (not 100% sure what
-        the "items" refers to, I guess it refers to rows).
-    :param no_result: some SQL statement doesn't return any result, for
-        example, ``CREATE TABLE``, ``DELETE TABLE``. If this is True,
-        then it will only wait the status to reach FINISHED, but won't run
-        ``get_statement_result`` API.
+    :param verbose: whether to print verbose output during polling.
+    :param raises_on_error: whether to raise an exception when the SQL execution fails.
 
     Reference:
 
@@ -104,7 +109,7 @@ def run_sql(
     - describe_statement: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/describe_statement.html
     - get_statement_result: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/get_statement_result.html
 
-    :return:
+    :return: :class:`RunSqlResult` object.
     """
     # --- execute_statement
     # process arguments
@@ -144,11 +149,17 @@ def run_sql(
                 continue
             # raise exception when failed
             elif status == "FAILED":
-                raise RuntimeError(
-                    "FAILED! error: {}".format(describe_statement_response.error)
-                )
+                if raises_on_error:  # pragma: no cover
+                    raise RuntimeError(
+                        "FAILED! error: {}".format(describe_statement_response.error)
+                    )
+                else:
+                    break
             elif status == "ABORTED":
-                raise RuntimeError("ABORTED!")
+                if raises_on_error:  # pragma: no cover
+                    raise RuntimeError("ABORTED!")
+                else:
+                    break
             else:  # pragma: no cover
                 raise NotImplementedError
         except botocore.exceptions.ClientError as e:
@@ -169,7 +180,18 @@ def get_statement_result(
     max_items: int = 1000,
 ) -> GetStatementResultResponseIterProxy:
     """
-    Ref:
+    Retrieves the result of a SQL statement execution using the Redshift Data API.
+
+    This function automatically paginates through all result pages and returns
+    an iterator proxy that yields GetStatementResultResponse objects for each page.
+
+    :param redshift_data_api_client: boto3.client("redshift-data") object
+    :param id: The identifier of the SQL statement to retrieve results for
+    :param max_items: Maximum number of items to return across all pages
+
+    :return: :class:`~simple_aws_redshift.model_redshift_data_api.py.GetStatementResultResponseIterProxy`
+
+    Reference:
 
     - get_statement_result: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/get_statement_result.html
     - GetStatementResult: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/paginator/GetStatementResult.html

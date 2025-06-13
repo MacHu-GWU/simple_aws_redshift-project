@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+Redshift connection parameters and utility functions.
+"""
+
 import typing as T
 import dataclasses
 from datetime import datetime
@@ -17,6 +21,13 @@ from .client_redshift_serverless import get_namespace, get_workgroup
 
 if T.TYPE_CHECKING:  # pragma: no cover
     from mypy_boto3_redshift_serverless.client import RedshiftServerlessClient
+
+
+@dataclasses.dataclass
+class RedshiftConnectionParams:
+    """
+    TODO
+    """
 
 
 @dataclasses.dataclass
@@ -41,6 +52,16 @@ class RedshiftServerlessConnectionParams:
         custom_domain_name: str = OPT,
         duration_seconds: int = OPT,
     ):
+        """
+        Create a new instance of :class:`RedshiftServerlessConnectionParams`
+        based on the redshift serverless namespace and workgroup.
+
+        :param redshift_serverless_client: boto3.client("redshift-serverless") object
+        :param namespace_name: The name of the Redshift serverless namespace.
+        :param workgroup_name: The name of the Redshift serverless workgroup.
+        :param custom_domain_name: Optional custom domain name for the connection.
+        :param duration_seconds: Optional duration in seconds for the credentials.
+        """
         namespace = get_namespace(
             redshift_serverless_client=redshift_serverless_client,
             namespace_name=namespace_name,

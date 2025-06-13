@@ -3,13 +3,14 @@
 from simple_aws_redshift.connect import (
     RedshiftServerlessConnectionParams,
 )
-from simple_aws_redshift.tests.settings import settings, run_test_sql
+from simple_aws_redshift.tests.settings import get_settings, run_test_sql
 
 from rich import print as rprint
 
 
 class TestRedshiftServerlessConnectionParams:
     def test(self):
+        settings = get_settings() # don't use singleton settings in tests
         params = RedshiftServerlessConnectionParams.new(
             redshift_serverless_client=settings.bsm.redshiftserverless_client,
             namespace_name=settings.namespace_name,

@@ -96,15 +96,19 @@ def run_test_sql(conn: redshift_connector.Connection):
 
 from .bsm import aws_profile
 
-name = "simple-aws-redshift-dev"
-name_slug = name.replace("_", "-")
-settings = Settings(
-    aws_profile=aws_profile,
-    vpc_id="vpc-0d87d639dc2503350",
-    security_group_name=name_slug,
-    namespace_name=name_slug,
-    db_name="dev",
-    workgroup_name=name_slug,
-    stack_name=name_slug,
-)
-# settings.print_attrs()
+
+def get_settings():
+    name = "simple-aws-redshift-dev"
+    name_slug = name.replace("_", "-")
+    settings = Settings(
+        aws_profile=aws_profile,
+        vpc_id="vpc-0d87d639dc2503350",
+        security_group_name=name_slug,
+        namespace_name=name_slug,
+        db_name="dev",
+        workgroup_name=name_slug,
+        stack_name=name_slug,
+    )
+    return settings
+
+settings = get_settings()

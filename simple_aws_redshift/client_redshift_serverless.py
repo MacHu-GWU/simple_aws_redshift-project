@@ -33,6 +33,8 @@ def list_namespaces(
     Ref:
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/paginator/ListNamespaces.html
+
+    :return: `~simple_aws_redshift.model_redshift_serverless.py.RedshiftServerlessNamespaceIterProxy`
     """
 
     # inner generator function to yield objects
@@ -113,6 +115,8 @@ def list_workgroups(
     max_items: int = 9999,
 ) -> RedshiftServerlessWorkgroupIterProxy:
     """
+    :return: `~simple_aws_redshift.model_redshift_serverless.py.RedshiftServerlessWorkgroupIterProxy`
+
     Ref:
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/paginator/ListWorkgroups.html
