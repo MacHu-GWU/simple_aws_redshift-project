@@ -15,7 +15,7 @@ x.y.z (Backlog)
 **Miscellaneous**
 
 
-0.2.1 (2025-06-12)
+0.2.1 (2025-06-13)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - Add the following public APIs:
     - ``simple_aws_redshift.api.RedshiftServerlessConnectionParams``
