@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-Improve the original redshift data api.
+Improve the original redshift data api boto3 API.
 
-- execute_statement: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/execute_statement.html
-- describe_statement: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/describe_statement.html
-- get_statement_result: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/get_statement_result.html
-- GetStatementResult: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/paginator/GetStatementResult.html
+Ref:
+
+- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data.html
 """
 
 import dataclasses
@@ -28,14 +27,18 @@ if T.TYPE_CHECKING:  # pragma: no cover
     from mypy_boto3_redshift_data.literals import ResultFormatStringType
     from mypy_boto3_redshift_data.type_defs import (
         ExecuteStatementOutputTypeDef,
-        DescribeStatementResponseTypeDef,
         GetStatementResultResponseTypeDef,
     )
 
 
 @dataclasses.dataclass
 class RunSqlResult(BaseModel):
-    """ """
+    """
+    Result of running a SQL statement using the Redshift Data API.
+
+    :param execute_statement_response: Response from the `execute_statement` API call.
+    :param describe_statement_response: Response from the `describe_statement` API call.
+    """
 
     # fmt: off
     execute_statement_response: "ExecuteStatementOutputTypeDef" = dataclasses.field(default=REQ)
@@ -44,6 +47,10 @@ class RunSqlResult(BaseModel):
 
     @property
     def execution_id(self) -> str:
+        """
+        Get the execution ID of the SQL statement. This ID can be used to
+        retrieve the results of the SQL execution using the `get_statement_result` API.
+        """
         return self.execute_statement_response["Id"]
 
 
@@ -97,7 +104,7 @@ def run_sql(
     - describe_statement: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/describe_statement.html
     - get_statement_result: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/get_statement_result.html
 
-    :return: a tuple of (columns, rows) # todo, also return the column type
+    :return:
     """
     # --- execute_statement
     # process arguments

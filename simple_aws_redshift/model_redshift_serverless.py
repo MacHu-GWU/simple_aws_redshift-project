@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-Redshift Serverless Data Models.
+Data models for AWS Redshift Serverless resources.
+
+Ref:
+
+- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless.html
 """
 
 import typing as T
@@ -33,8 +37,6 @@ class RedshiftServerlessNamespace(Base):
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/get_namespace.html
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/list_namespaces.html
-
-    :param _data: The raw data from the API response, stored as a dictionary.
     """
 
     raw_data: "NamespaceTypeDef" = dataclasses.field(default=REQ)
@@ -123,8 +125,6 @@ class RedshiftServerlessWorkgroup(Base):
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/get_workgroup.html
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/list_workgroups.html
-
-    :param raw_data: The raw data from the API response, stored as a dictionary.
     """
 
     raw_data: "WorkgroupTypeDef" = dataclasses.field(default=REQ)
@@ -246,8 +246,12 @@ class RedshiftServerlessWorkgroup(Base):
 
 
 class RedshiftServerlessNamespaceIterProxy(IterProxy[RedshiftServerlessNamespace]):
-    pass
+    """
+    Iterator proxy for :class:`RedshiftServerlessNamespace`.
+    """
 
 
 class RedshiftServerlessWorkgroupIterProxy(IterProxy[RedshiftServerlessWorkgroup]):
-    pass
+    """
+    Iterator proxy for :class:`RedshiftServerlessWorkgroup`.
+    """

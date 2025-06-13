@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
 """
-Redshift Serverless Data Models.
+Data models for AWS Redshift Data API resources.
+
+Ref:
+
+- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data.html
 """
 
 import typing as T
 import enum
 import base64
 import dataclasses
-from datetime import date, time, datetime, timezone
+from datetime import date, time, datetime
 
 from func_args.api import T_KWARGS, REQ
 from iterproxy import IterProxy
@@ -32,9 +36,8 @@ if T.TYPE_CHECKING:  # pragma: no cover
 @dataclasses.dataclass
 class DescribeStatementResponse(Base):
     """
-    Ref:
-
-    - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/describe_statement.html
+    API response for
+    https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/client/describe_statement.html
     """
 
     raw_data: "DescribeStatementResponseTypeDef" = dataclasses.field(default=REQ)
@@ -165,7 +168,9 @@ class DescribeStatementResponse(Base):
 
 
 class RedshiftDataType(str, enum.Enum):
-    """Enumeration of Redshift data types as returned by the Data API"""
+    """
+    Enumeration of Redshift data types as returned by the Data API
+    """
 
     # String types
     VARCHAR = "varchar"
@@ -230,6 +235,9 @@ def extract_field_value(
     column_metadata: "ColumnMetadataTypeDef",
     field: "FieldTypeDef",
 ) -> T.Any:
+    """
+    Extracts the native Python value from a Redshift Data API field.
+    """
     type_name = column_metadata["typeName"]
     key = type_to_field_mapping[type_name]
     try:
@@ -257,9 +265,8 @@ def extract_field_value(
 @dataclasses.dataclass
 class GetStatementResultResponse(Base):
     """
-    Ref:
-
-    - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/paginator/GetStatementResult.html
+    API response for
+    https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data/paginator/GetStatementResult.html
     """
 
     raw_data: "GetStatementResultResponseTypeDef" = dataclasses.field(default=REQ)
@@ -281,7 +288,12 @@ class GetStatementResultResponse(Base):
 
     def to_column_oriented_data(self) -> dict[str, list[T.Any]]:
         """
-        Convert the records to a column-oriented format.
+        Convert records to a column-oriented format. Like::
+
+            {
+                "column_name_1": [value1, value2, ...],
+                "column_name_2": [value1, value2, ...],
+            }
         """
         data = {column_metadata["name"]: [] for column_metadata in self.column_metadata}
         for record in self.records:
@@ -292,7 +304,19 @@ class GetStatementResultResponse(Base):
 
 
 class GetStatementResultResponseIterProxy(IterProxy[GetStatementResultResponse]):
+    """
+    Iterator proxy for :class:`GetStatementResultResponse`.
+    """
+
     def to_column_oriented_data(self) -> dict[str, list[T.Any]]:
+        """
+        Convert all records in the iterator to a column-oriented format. Like::
+
+            {
+                "column_name_1": [value1, value2, ...],
+                "column_name_2": [value1, value2, ...],
+            }
+        """
         data = None
         for get_statement_result in self:
             column_oriented_data = get_statement_result.to_column_oriented_data()

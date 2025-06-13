@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
 """
-Improve the original redshift-serverless boto3 client.
+Improve the original redshift-serverless boto3 API.
+
+Ref:
+
+- https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless.html
 """
 
 import typing as T
 
 import botocore.exceptions
-from func_args.api import REQ, OPT, remove_optional
+from func_args.api import OPT, remove_optional
 
 from .model_redshift_serverless import (
     RedshiftServerlessNamespace,
@@ -53,6 +57,8 @@ def get_namespace(
     namespace_name: str,
 ) -> T.Optional[RedshiftServerlessNamespace]:
     """
+    :return: None if the namespace does not exist.
+
     Ref:
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/get_namespace.html
@@ -77,6 +83,8 @@ def delete_namespace(
     final_snapshot_retention_period: int = OPT,
 ) -> T.Optional[RedshiftServerlessNamespace]:
     """
+    :return: None if the namespace does not exist, otherwise return the deleted namespace object.
+
     Ref:
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/delete_namespace.html
@@ -135,6 +143,8 @@ def get_workgroup(
     workgroup_name: str,
 ) -> T.Optional[RedshiftServerlessWorkgroup]:
     """
+    :return: None if the workgroup does not exist.
+
     Ref:
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/get_workgroup.html
@@ -157,6 +167,8 @@ def delete_workgroup(
     workgroup_name: str,
 ) -> T.Optional[RedshiftServerlessWorkgroup]:
     """
+    :return: None if the workgroup does not exist, otherwise return the deleted workgroup object.
+
     Ref:
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/client/delete_workgroup.html
