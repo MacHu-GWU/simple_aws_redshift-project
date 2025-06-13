@@ -17,6 +17,7 @@ from datetime import date, time, datetime
 from func_args.api import T_KWARGS, REQ
 from iterproxy import IterProxy
 
+from .utils import parse_datetime
 from .model import Base
 
 if T.TYPE_CHECKING:  # pragma: no cover
@@ -262,7 +263,7 @@ def extract_field_python_native_value(
         RedshiftDataType.TIMESTAMP.value,
         RedshiftDataType.TIMESTAMPTZ.value,
     ]:
-        return datetime.fromisoformat(raw_value)
+        return parse_datetime(raw_value)
     elif type_name == RedshiftDataType.DATE.value:
         return date.fromisoformat(raw_value)
     elif type_name == RedshiftDataType.TIME.value:
