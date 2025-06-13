@@ -18,8 +18,9 @@ from func_args.api import REQ, OPT, remove_optional, BaseModel
 from .vendor.waiter import Waiter
 
 from .model_redshift_data_api import (
+    DescribeStatementResponse,
     GetStatementResultResponse,
-    StatementResultIterProxy,
+    GetStatementResultResponseIterProxy,
 )
 
 if T.TYPE_CHECKING:  # pragma: no cover
@@ -38,8 +39,12 @@ class RunSqlResult(BaseModel):
 
     # fmt: off
     execute_statement_response: "ExecuteStatementOutputTypeDef" = dataclasses.field(default=REQ)
-    describe_statement_response: "DescribeStatementResponseTypeDef" = dataclasses.field(default=REQ)
+    describe_statement_response: "DescribeStatementResponse" = dataclasses.field(default=REQ)
     # fmt: on
+
+    @property
+    def execution_id(self) -> str:
+        return self.execute_statement_response["Id"]
 
 
 def run_sql(
@@ -94,9 +99,7 @@ def run_sql(
 
     :return: a tuple of (columns, rows) # todo, also return the column type
     """
-    # --------------------------------------------------------------------------
-    # execute_statement
-    # --------------------------------------------------------------------------
+    # --- execute_statement
     # process arguments
     kwargs = dict(
         Sql=sql,
@@ -118,17 +121,15 @@ def run_sql(
     )
     id = execute_statement_response["Id"]
 
-    # --------------------------------------------------------------------------
-    # describe_statement, wait for the status to reach FINISHED
-    # --------------------------------------------------------------------------
+    # --- describe_statement
+    # wait for the status to reach FINISHED
     describe_statement_response = None
     for _ in Waiter(delays=delay, timeout=timeout, verbose=verbose):
         try:
-            describe_statement_response = redshift_data_api_client.describe_statement(
-                Id=id
-            )
+            response = redshift_data_api_client.describe_statement(Id=id)
+            describe_statement_response = DescribeStatementResponse(raw_data=response)
             # 'SUBMITTED'|'PICKED'|'STARTED'|'FINISHED'|'ABORTED'|'FAILED'|'ALL'
-            status = describe_statement_response["Status"]
+            status = describe_statement_response.status
             if status == "FINISHED":
                 break
             # still pending
@@ -137,7 +138,7 @@ def run_sql(
             # raise exception when failed
             elif status == "FAILED":
                 raise RuntimeError(
-                    "FAILED! error: {}".format(describe_statement_response["Error"])
+                    "FAILED! error: {}".format(describe_statement_response.error)
                 )
             elif status == "ABORTED":
                 raise RuntimeError("ABORTED!")
@@ -148,22 +149,18 @@ def run_sql(
                 continue
             else:  # pragma: no cover
                 raise e
-
-    if no_result:
-        if describe_statement_response is None:
-            raise ValueError
-        run_sql_result = RunSqlResult(
-            execute_statement_response=execute_statement_response,
-            describe_statement_response=describe_statement_response,
-        )
-        return run_sql_result
+    run_sql_result = RunSqlResult(
+        execute_statement_response=execute_statement_response,
+        describe_statement_response=describe_statement_response,
+    )
+    return run_sql_result
 
 
 def get_statement_result(
     redshift_data_api_client: "RedshiftDataAPIServiceClient",
     id: str,
     max_items: int = 1000,
-) -> StatementResultIterProxy:
+) -> GetStatementResultResponseIterProxy:
     """
     Ref:
 
@@ -181,7 +178,9 @@ def get_statement_result(
         )
         get_statement_result_response: GetStatementResultResponseTypeDef
         for get_statement_result_response in response_iterator:
-            statement_result = GetStatementResultResponse(raw_data=get_statement_result_response)
+            statement_result = GetStatementResultResponse(
+                raw_data=get_statement_result_response
+            )
             yield statement_result
 
-    return StatementResultIterProxy(func())
+    return GetStatementResultResponseIterProxy(func())

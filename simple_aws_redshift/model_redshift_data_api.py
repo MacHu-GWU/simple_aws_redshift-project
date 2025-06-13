@@ -291,5 +291,14 @@ class GetStatementResultResponse(Base):
         return data
 
 
-class StatementResultIterProxy(IterProxy[GetStatementResultResponse]):
-    pass
+class GetStatementResultResponseIterProxy(IterProxy[GetStatementResultResponse]):
+    def to_column_oriented_data(self) -> dict[str, list[T.Any]]:
+        data = None
+        for get_statement_result in self:
+            column_oriented_data = get_statement_result.to_column_oriented_data()
+            if data is None:
+                data = column_oriented_data
+            else:
+                for key, value in column_oriented_data.items():
+                    data[key].extend(value)
+        return data

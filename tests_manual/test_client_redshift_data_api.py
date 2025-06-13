@@ -3,6 +3,7 @@
 import textwrap
 from simple_aws_redshift.client_redshift_data_api import (
     run_sql,
+    get_statement_result,
 )
 from simple_aws_redshift.tests.settings import settings
 
@@ -56,13 +57,14 @@ def test_run_sql():
         result_format="JSON",
         verbose=True,
     )
-    # rprint(result)
+    rprint(run_sql_result)
 
-    for statement_result in run_sql_result.statement_result_list:
-        rprint(statement_result.raw_data)
-    #     rprint(statement_result.column_metadata)
-    #     for record in statement_result.records:
-    #         rprint(record)
+    get_statement_result_response_iterproxy = get_statement_result(
+        redshift_data_api_client=bsm.redshiftdataapiservice_client,
+        id=run_sql_result.execution_id,
+    )
+    data = get_statement_result_response_iterproxy.to_column_oriented_data()
+    rprint(data)
 
 
 if __name__ == "__main__":
