@@ -15,7 +15,23 @@ x.y.z (Backlog)
 **Miscellaneous**
 
 
-0.1.1 (1970-01-01)
+0.2.1 (2025-06-12)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Add the following public APIs:
+    - ``simple_aws_redshift.api.RedshiftServerlessConnectionParams``
+    - ``simple_aws_redshift.api.redshift_data_api.DescribeStatementResponse``
+    - ``simple_aws_redshift.api.redshift_data_api.RedshiftDataType``
+    - ``simple_aws_redshift.api.redshift_data_api.type_to_field_mapping``
+    - ``simple_aws_redshift.api.redshift_data_api.extract_field_raw_value``
+    - ``simple_aws_redshift.api.redshift_data_api.extract_field_python_native_value``
+    - ``simple_aws_redshift.api.redshift_data_api.GetStatementResultResponse``
+    - ``simple_aws_redshift.api.redshift_data_api.GetStatementResultResponseIterProxy``
+    - ``simple_aws_redshift.api.redshift_data_api.RunSqlResult``
+    - ``simple_aws_redshift.api.redshift_data_api.run_sql``
+    - ``simple_aws_redshift.api.redshift_data_api.get_statement_result``
+
+
+0.1.1 (2025-06-12)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - First release
 - Add the following public APIs:

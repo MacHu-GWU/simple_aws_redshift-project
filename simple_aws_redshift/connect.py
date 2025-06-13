@@ -8,8 +8,10 @@ import typing as T
 import dataclasses
 from datetime import datetime
 
-import redshift_connector
-
+try:
+    import redshift_connector
+except ImportError: # pragma: no cover
+    pass
 
 from func_args.api import OPT, remove_optional
 
@@ -95,7 +97,7 @@ class RedshiftServerlessConnectionParams:
     def get_connection(
         self,
         timeout: int = 3,
-    ) -> redshift_connector.Connection:
+    ) -> "redshift_connector.Connection":
         """
         Create a Redshift connection using the parameters.
 
