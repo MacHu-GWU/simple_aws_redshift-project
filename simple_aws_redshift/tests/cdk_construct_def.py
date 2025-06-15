@@ -8,8 +8,11 @@ import cdkit.api as cdkit
 
 import aws_cdk as cdk
 import aws_cdk.aws_ec2 as ec2
+import aws_cdk.aws_iam as iam
 import aws_cdk.aws_redshiftserverless as redshiftserverless
 from constructs import Construct
+
+from .secrets import admin_username, admin_password
 
 
 def get_my_ip() -> str:
@@ -21,8 +24,11 @@ def get_my_ip() -> str:
 class ExperimentRedshiftServerlessParams(cdkit.ConstructParams):
     vpc_id: str = dataclasses.field(default=REQ)
     security_group_name: str = dataclasses.field(default=REQ)
+    iam_role_name: str = dataclasses.field(default=REQ)
     namespace_name: str = dataclasses.field(default=REQ)
     db_name: str = dataclasses.field(default=REQ)
+    admin_username: str = dataclasses.field(default=REQ)
+    admin_password: str = dataclasses.field(default=REQ)
     workgroup_name: str = dataclasses.field(default=REQ)
 
 
@@ -36,6 +42,7 @@ class ExperimentRedshiftServerless(cdkit.BaseConstruct):
         self.params = params
 
         self.create_security_group()
+        self.create_iam_role()
         self.create_namespace()
         self.create_workgroup()
 
@@ -57,6 +64,17 @@ class ExperimentRedshiftServerless(cdkit.BaseConstruct):
             connection=ec2.Port.tcp(5439),
         )
 
+    def create_iam_role(self):
+        self.iam_role = iam.Role(
+            scope=self,
+            id="RedshiftServerlessRole",
+            assumed_by=iam.ServicePrincipal("redshift.amazonaws.com"),
+            role_name=self.params.iam_role_name,
+            managed_policies=[
+                iam.ManagedPolicy.from_aws_managed_policy_name("AmazonS3ReadOnlyAccess")
+            ],
+        )
+
     def create_namespace(self):
         """
         Ref: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_redshiftserverless/CfnNamespace.html
@@ -66,10 +84,16 @@ class ExperimentRedshiftServerless(cdkit.BaseConstruct):
             id="RedshiftServerlessNamespace",
             namespace_name=self.params.namespace_name,
             db_name=self.params.db_name,
+            admin_username=self.params.admin_username,
+            admin_user_password=self.params.admin_password,
+            iam_roles=[
+                self.iam_role.role_arn,
+            ],
         )
         self.namespace.apply_removal_policy(
             cdk.RemovalPolicy.DESTROY,
         )
+        self.namespace.node.add_dependency(self.iam_role)
 
     def create_workgroup(self):
         """

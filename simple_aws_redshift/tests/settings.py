@@ -8,14 +8,19 @@ import cdk_mate.api as cdk_mate
 import redshift_connector
 from boto_session_manager import BotoSesManager
 
+from .secrets import admin_username, admin_password
+
 
 @dataclasses.dataclass
 class Settings:
     aws_profile: str = dataclasses.field()
     vpc_id: str = dataclasses.field()
     security_group_name: str = dataclasses.field()
+    iam_role_name: str = dataclasses.field()
     namespace_name: str = dataclasses.field()
     db_name: str = dataclasses.field()
+    admin_username: str = dataclasses.field()
+    admin_password: str = dataclasses.field()
     workgroup_name: str = dataclasses.field()
     stack_name: str = dataclasses.field()
 
@@ -104,11 +109,15 @@ def get_settings():
         aws_profile=aws_profile,
         vpc_id="vpc-0d87d639dc2503350",
         security_group_name=name_slug,
+        iam_role_name=name_slug,
         namespace_name=name_slug,
         db_name="dev",
+        admin_username=admin_username.v,
+        admin_password=admin_password.v,
         workgroup_name=name_slug,
         stack_name=name_slug,
     )
     return settings
+
 
 settings = get_settings()
