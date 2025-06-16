@@ -13,32 +13,32 @@ Redshift APIs
 
 Data Models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- :class:`simple_aws_redshift.api.redshift.RedshiftCluster <simple_aws_redshift.model_redshift_serverless.RedshiftCluster>`
-- :class:`simple_aws_redshift.api.redshift.RedshiftClusterIterProxy <simple_aws_redshift.model_redshift_serverless.RedshiftClusterIterProxy>`
+- :class:`simple_aws_redshift.api.redshift.RedshiftCluster <simple_aws_redshift.redshift.model.RedshiftCluster>`
+- :class:`simple_aws_redshift.api.redshift.RedshiftClusterIterProxy <simple_aws_redshift.redshift.model.RedshiftClusterIterProxy>`
 
 Client Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- :func:`simple_aws_redshift.api.redshift.list_redshift_clusters <simple_aws_redshift.client_redshift_serverless.list_redshift_clusters>`
-- :func:`simple_aws_redshift.api.redshift.get_redshift_cluster <simple_aws_redshift.client_redshift_serverless.get_redshift_cluster>`
+- :func:`simple_aws_redshift.api.redshift.list_redshift_clusters <simple_aws_redshift.redshift.client.list_redshift_clusters>`
+- :func:`simple_aws_redshift.api.redshift.get_redshift_cluster <simple_aws_redshift.redshift.client.get_redshift_cluster>`
 
 Redshift Serverless APIs
 -------------------------------------------------------------------------------
 
 Data Models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- :class:`simple_aws_redshift.api.redshift_serverless.RedshiftServerlessNamespace <simple_aws_redshift.model_redshift_serverless.RedshiftServerlessNamespace>`
-- :class:`simple_aws_redshift.api.redshift_serverless.RedshiftServerlessNamespaceIterProxy <simple_aws_redshift.model_redshift_serverless.RedshiftServerlessNamespaceIterProxy>`
-- :class:`simple_aws_redshift.api.redshift_serverless.RedshiftServerlessWorkgroup <simple_aws_redshift.model_redshift_serverless.RedshiftServerlessWorkgroup>`
-- :class:`simple_aws_redshift.api.redshift_serverless.RedshiftServerlessWorkgroupIterProxy <simple_aws_redshift.model_redshift_serverless.RedshiftServerlessWorkgroupIterProxy>`
+- :class:`simple_aws_redshift.api.redshift_serverless.RedshiftServerlessNamespace <simple_aws_redshift.redshift_serverless.model.RedshiftServerlessNamespace>`
+- :class:`simple_aws_redshift.api.redshift_serverless.RedshiftServerlessNamespaceIterProxy <simple_aws_redshift.redshift_serverless.model.RedshiftServerlessNamespaceIterProxy>`
+- :class:`simple_aws_redshift.api.redshift_serverless.RedshiftServerlessWorkgroup <simple_aws_redshift.redshift_serverless.model.RedshiftServerlessWorkgroup>`
+- :class:`simple_aws_redshift.api.redshift_serverless.RedshiftServerlessWorkgroupIterProxy <simple_aws_redshift.redshift_serverless.model.RedshiftServerlessWorkgroupIterProxy>`
 
 Client Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- :func:`simple_aws_redshift.api.redshift_serverless.list_namespaces <simple_aws_redshift.client_redshift_serverless.list_namespaces>`
-- :func:`simple_aws_redshift.api.redshift_serverless.get_namespace <simple_aws_redshift.client_redshift_serverless.get_namespace>`
-- :func:`simple_aws_redshift.api.redshift_serverless.delete_namespace <simple_aws_redshift.client_redshift_serverless.delete_namespace>`
-- :func:`simple_aws_redshift.api.redshift_serverless.list_workgroups <simple_aws_redshift.client_redshift_serverless.list_workgroups>`
-- :func:`simple_aws_redshift.api.redshift_serverless.get_workgroup <simple_aws_redshift.client_redshift_serverless.get_workgroup>`
-- :func:`simple_aws_redshift.api.redshift_serverless.delete_workgroup <simple_aws_redshift.client_redshift_serverless.delete_workgroup>`
+- :func:`simple_aws_redshift.api.redshift_serverless.list_namespaces <simple_aws_redshift.redshift_serverless.client.list_namespaces>`
+- :func:`simple_aws_redshift.api.redshift_serverless.get_namespace <simple_aws_redshift.redshift_serverless.client.get_namespace>`
+- :func:`simple_aws_redshift.api.redshift_serverless.delete_namespace <simple_aws_redshift.redshift_serverless.client.delete_namespace>`
+- :func:`simple_aws_redshift.api.redshift_serverless.list_workgroups <simple_aws_redshift.redshift_serverless.client.list_workgroups>`
+- :func:`simple_aws_redshift.api.redshift_serverless.get_workgroup <simple_aws_redshift.redshift_serverless.client.get_workgroup>`
+- :func:`simple_aws_redshift.api.redshift_serverless.delete_workgroup <simple_aws_redshift.redshift_serverless.client.delete_workgroup>`
 
 
 Redshift Data API
@@ -46,19 +46,19 @@ Redshift Data API
 
 High-Level Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- :func:`simple_aws_redshift.api.redshift_data_api.run_sql <simple_aws_redshift.client_redshift_data_api.run_sql>`
-- :func:`simple_aws_redshift.api.redshift_data_api.get_statement_result <simple_aws_redshift.client_redshift_data_api.get_statement_result>`
+- :func:`simple_aws_redshift.api.redshift_data_api.run_sql <simple_aws_redshift.redshift_data_api.client.run_sql>`
+- :func:`simple_aws_redshift.api.redshift_data_api.get_statement_result <simple_aws_redshift.redshift_data_api.client.get_statement_result>`
 
 Data Models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- :class:`simple_aws_redshift.api.redshift_data_api.RunSqlResult <simple_aws_redshift.client_redshift_data_api.RunSqlResult>`
-- :class:`simple_aws_redshift.api.redshift_data_api.DescribeStatementResponse <simple_aws_redshift.model_redshift_data_api.DescribeStatementResponse>`
-- :class:`simple_aws_redshift.api.redshift_data_api.GetStatementResultResponse <simple_aws_redshift.model_redshift_data_api.GetStatementResultResponse>`
-- :class:`simple_aws_redshift.api.redshift_data_api.GetStatementResultResponseIterProxy <simple_aws_redshift.model_redshift_data_api.GetStatementResultResponseIterProxy>`
+- :class:`simple_aws_redshift.api.redshift_data_api.RunSqlResult <simple_aws_redshift.redshift_data_api.client.RunSqlResult>`
+- :class:`simple_aws_redshift.api.redshift_data_api.DescribeStatementResponse <simple_aws_redshift.redshift_data_api.model.DescribeStatementResponse>`
+- :class:`simple_aws_redshift.api.redshift_data_api.GetStatementResultResponse <simple_aws_redshift.redshift_data_api.model.GetStatementResultResponse>`
+- :class:`simple_aws_redshift.api.redshift_data_api.GetStatementResultResponseIterProxy <simple_aws_redshift.redshift_data_api.model.GetStatementResultResponseIterProxy>`
 
 Data Type Utilities
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- :class:`simple_aws_redshift.api.redshift_data_api.RedshiftDataType <simple_aws_redshift.model_redshift_data_api.RedshiftDataType>`
-- :func:`simple_aws_redshift.api.redshift_data_api.type_to_field_mapping <simple_aws_redshift.model_redshift_data_api.type_to_field_mapping>`
-- :func:`simple_aws_redshift.api.redshift_data_api.extract_field_raw_value <simple_aws_redshift.model_redshift_data_api.extract_field_raw_value>`
-- :func:`simple_aws_redshift.api.redshift_data_api.extract_field_python_native_value <simple_aws_redshift.model_redshift_data_api.extract_field_python_native_value>`
+- :class:`simple_aws_redshift.api.redshift_data_api.RedshiftDataType <simple_aws_redshift.redshift_data_api.model.RedshiftDataType>`
+- :func:`simple_aws_redshift.api.redshift_data_api.type_to_field_mapping <simple_aws_redshift.redshift_data_api.model.type_to_field_mapping>`
+- :func:`simple_aws_redshift.api.redshift_data_api.extract_field_raw_value <simple_aws_redshift.redshift_data_api.model.extract_field_raw_value>`
+- :func:`simple_aws_redshift.api.redshift_data_api.extract_field_python_native_value <simple_aws_redshift.redshift_data_api.model.extract_field_python_native_value>`

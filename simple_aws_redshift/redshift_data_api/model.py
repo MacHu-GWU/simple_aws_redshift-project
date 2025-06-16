@@ -230,6 +230,10 @@ type_to_field_mapping = {
     RedshiftDataType.VARBYTE.value: "stringValue",
     RedshiftDataType.VARCHAR.value: "stringValue",
 }
+"""
+From redshift column data type to the field key where the value is stored 
+in the Redshift Data API response.
+"""
 
 
 def extract_field_raw_value(
