@@ -873,7 +873,7 @@ description = "Foreign Function Interface for Python calling C code."
 optional = true
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "(extra == \"dev\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"linux\" or extra == \"test\") and platform_python_implementation != \"PyPy\" or extra == \"doc\" and implementation_name == \"pypy\""
+markers = "implementation_name == \"pypy\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"linux\" and platform_python_implementation != \"PyPy\" and (extra == \"dev\" or extra == \"test\" or extra == \"doc\") or implementation_name == \"pypy\" and extra == \"doc\" or implementation_name == \"pypy\" and platform_python_implementation != \"PyPy\" and (extra == \"test\" or extra == \"doc\") or (extra == \"dev\" or extra == \"test\") and platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"linux\" and platform_python_implementation != \"PyPy\" and (extra == \"dev\" or extra == \"test\" or extra == \"doc\") or platform_python_implementation != \"PyPy\" and extra == \"test\""
 files = [
     {file = "cffi-1.17.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:df8b1c11f177bc2313ec4b2d46baec87a5f3e71fc8b45dab2ee7cae86d9aba14"},
     {file = "cffi-1.17.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:8f2cdc858323644ab277e9bb925ad72ae0e67f69e804f4898c070998d50b1a67"},
@@ -1057,7 +1057,7 @@ description = "Cross-platform colored terminal text."
 optional = true
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 groups = ["main"]
-markers = "sys_platform == \"win32\" and os_name == \"nt\" and (extra == \"dev\" or extra == \"test\" or extra == \"doc\") or sys_platform == \"win32\" and (extra == \"test\" or extra == \"doc\") and (extra == \"dev\" or extra == \"test\" or extra == \"doc\") or extra == \"dev\" and os_name == \"nt\""
+markers = "(sys_platform == \"win32\" or extra == \"dev\") and (extra == \"test\" or extra == \"doc\" or extra == \"dev\") and (os_name == \"nt\" or sys_platform == \"win32\") and (os_name == \"nt\" or extra == \"test\" or extra == \"doc\")"
 files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
@@ -1168,7 +1168,7 @@ description = "cryptography is a package which provides cryptographic recipes an
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "extra == \"dev\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"linux\" or extra == \"test\""
+markers = "(extra == \"dev\" or extra == \"test\") and platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"linux\" or extra == \"test\""
 files = [
     {file = "cryptography-43.0.3-cp37-abi3-macosx_10_9_universal2.whl", hash = "sha256:bf7a1932ac4176486eab36a19ed4c0492da5d97123f1406cf15e41b05e787d2e"},
     {file = "cryptography-43.0.3-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:63efa177ff54aec6e1c0aefaa1a241232dcd37413835a9b674b6e3f0ae2bfd3e"},
@@ -1519,7 +1519,7 @@ description = "Read metadata from Python packages"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "(python_version < \"3.10\" or extra == \"dev\") and (platform_machine != \"ppc64le\" and platform_machine != \"s390x\" or python_full_version < \"3.10.2\") and python_version <= \"3.11\" and (extra == \"dev\" or extra == \"doc\")"
+markers = "(extra == \"dev\" or python_version < \"3.10\") and (platform_machine != \"ppc64le\" and platform_machine != \"s390x\" or python_full_version < \"3.10.2\") and python_version < \"3.12\" and (extra == \"dev\" or extra == \"doc\")"
 files = [
     {file = "importlib_metadata-8.6.1-py3-none-any.whl", hash = "sha256:02a89390c1e15fdfdc0d7c6b25cb3e62650d0494005c97d6f148bf5b9787525e"},
     {file = "importlib_metadata-8.6.1.tar.gz", hash = "sha256:310b41d755445d74569f993ccfc22838295d9fe005425094fad953d7f15c8580"},
@@ -3030,7 +3030,7 @@ description = "C parser in Python"
 optional = true
 python-versions = ">=3.8"
 groups = ["main"]
-markers = "extra == \"dev\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"linux\" and platform_python_implementation != \"PyPy\" or extra == \"test\" and platform_python_implementation != \"PyPy\" or extra == \"doc\" and implementation_name == \"pypy\""
+markers = "implementation_name == \"pypy\" and platform_python_implementation != \"PyPy\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"linux\" and (extra == \"dev\" or extra == \"test\" or extra == \"doc\") or implementation_name == \"pypy\" and platform_python_implementation != \"PyPy\" and (extra == \"test\" or extra == \"doc\") or implementation_name == \"pypy\" and extra == \"doc\" or (extra == \"dev\" or extra == \"test\") and platform_python_implementation != \"PyPy\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\" and sys_platform == \"linux\" and (extra == \"dev\" or extra == \"test\" or extra == \"doc\") or platform_python_implementation != \"PyPy\" and extra == \"test\""
 files = [
     {file = "pycparser-2.22-py3-none-any.whl", hash = "sha256:c3702b6d3dd8c7abc1afa565d7e63d53a1d0bd86cdc24edd75470f4de499cfcc"},
     {file = "pycparser-2.22.tar.gz", hash = "sha256:491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6"},
@@ -3116,7 +3116,7 @@ description = "Extensions to the standard Python datetime module"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 groups = ["main"]
-markers = "python_version <= \"3.10\" or extra == \"connnect\" or extra == \"test\" or extra == \"doc\""
+markers = "extra == \"connnect\" or extra == \"test\" or extra == \"doc\" or python_version <= \"3.10\""
 files = [
     {file = "python-dateutil-2.9.0.post0.tar.gz", hash = "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"},
     {file = "python_dateutil-2.9.0.post0-py2.py3-none-any.whl", hash = "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"},
@@ -3740,7 +3740,7 @@ description = "Python 2 and 3 compatibility utilities"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 groups = ["main"]
-markers = "python_version <= \"3.10\" or extra == \"connnect\" or extra == \"test\" or extra == \"doc\""
+markers = "extra == \"connnect\" or extra == \"test\" or extra == \"doc\" or python_version <= \"3.10\""
 files = [
     {file = "six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"},
     {file = "six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"},
@@ -4435,7 +4435,7 @@ description = "Backport of pathlib-compatible object wrapper for zip files"
 optional = true
 python-versions = ">=3.9"
 groups = ["main"]
-markers = "(python_version < \"3.10\" or extra == \"dev\") and (platform_machine != \"ppc64le\" and platform_machine != \"s390x\" or python_full_version < \"3.10.2\") and python_version <= \"3.11\" and (extra == \"dev\" or extra == \"doc\" or extra == \"test\")"
+markers = "(extra == \"dev\" or python_version < \"3.10\") and (platform_machine != \"ppc64le\" and platform_machine != \"s390x\" or python_full_version < \"3.10.2\") and python_version < \"3.12\" and (extra == \"dev\" or extra == \"doc\" or extra == \"test\")"
 files = [
     {file = "zipp-3.21.0-py3-none-any.whl", hash = "sha256:ac1bbe05fd2991f160ebce24ffbac5f6d11d83dc90891255885223d42b3cd931"},
     {file = "zipp-3.21.0.tar.gz", hash = "sha256:2c9958f6430a2040341a52eb608ed6dd93ef4392e02ffe219417c1b28b5dd1f4"},
