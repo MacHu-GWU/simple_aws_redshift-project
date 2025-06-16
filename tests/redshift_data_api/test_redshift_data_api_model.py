@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-from simple_aws_redshift.model_redshift_data_api import (
+from simple_aws_redshift.redshift_data_api.model import (
     DescribeStatementResponse,
     GetStatementResultResponse,
 )
@@ -297,6 +297,6 @@ if __name__ == "__main__":
 
     run_cov_test(
         __file__,
-        "simple_aws_redshift.model_redshift_data_api.py",
+        "simple_aws_redshift.redshift_data_api.model.py",
         preview=False,
     )

@@ -17,8 +17,8 @@ from datetime import date, time, datetime
 from func_args.api import T_KWARGS, REQ
 from iterproxy import IterProxy
 
-from .utils import parse_datetime
-from .model import Base
+from ..utils import parse_datetime
+from ..model import Base
 
 if T.TYPE_CHECKING:  # pragma: no cover
     from mypy_boto3_redshift_data.literals import (

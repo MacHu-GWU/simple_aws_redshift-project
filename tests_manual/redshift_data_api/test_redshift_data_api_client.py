@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import textwrap
-from simple_aws_redshift.client_redshift_data_api import (
+from simple_aws_redshift.redshift_data_api.client import (
     run_sql,
     get_statement_result,
 )
@@ -13,7 +13,7 @@ from rich import print as rprint
 
 
 def test_run_sql():
-    sql = "SELECT 1;"
+    # sql = "SELECT 1;"
     sql = textwrap.dedent(
         """
     SELECT 
@@ -72,6 +72,6 @@ if __name__ == "__main__":
 
     run_cov_test(
         __file__,
-        "simple_aws_redshift.client_redshift_data_api.py",
+        "simple_aws_redshift.redshift_data_api.client.py",
         preview=False,
     )

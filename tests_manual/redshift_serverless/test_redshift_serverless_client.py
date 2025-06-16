@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from simple_aws_redshift.client_redshift_serverless import (
+from simple_aws_redshift.tests.settings import settings
+from simple_aws_redshift.redshift_serverless.client import (
     list_namespaces,
     get_namespace,
     list_workgroups,
@@ -26,7 +27,7 @@ def test_get_namespace():
 
     namespace = get_namespace(
         redshift_serverless_client=bsm.redshiftserverless_client,
-        namespace_name="my-ohmy-sql-dev",
+        namespace_name=settings.namespace_name,
     )
     rprint(namespace)
 
@@ -45,7 +46,7 @@ def test_get_workgroup():
 
     workgroup = get_workgroup(
         redshift_serverless_client=bsm.redshiftserverless_client,
-        workgroup_name="my-ohmy-sql-dev",
+        workgroup_name=settings.workgroup_name,
     )
     rprint(workgroup)
 
@@ -55,6 +56,6 @@ if __name__ == "__main__":
 
     run_cov_test(
         __file__,
-        "simple_aws_redshift.client_redshift_serverless.py",
+        "simple_aws_redshift.redshift_serverless.client.py",
         preview=False,
     )

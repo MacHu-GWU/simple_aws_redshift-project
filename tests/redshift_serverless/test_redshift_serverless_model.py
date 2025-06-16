@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from simple_aws_redshift.model_redshift_serverless import (
+from simple_aws_redshift.redshift_serverless.model import (
     RedshiftServerlessNamespace,
     RedshiftServerlessWorkgroup,
 )
@@ -49,6 +49,6 @@ if __name__ == "__main__":
 
     run_cov_test(
         __file__,
-        "simple_aws_redshift.model_redshift_serverless.py",
+        "simple_aws_redshift.redshift_serverless.model.py",
         preview=False,
     )

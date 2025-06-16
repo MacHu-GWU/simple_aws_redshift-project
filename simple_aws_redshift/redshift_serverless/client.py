@@ -13,7 +13,7 @@ import typing as T
 import botocore.exceptions
 from func_args.api import OPT, remove_optional
 
-from .model_redshift_serverless import (
+from .model import (
     RedshiftServerlessNamespace,
     RedshiftServerlessNamespaceIterProxy,
     RedshiftServerlessWorkgroup,

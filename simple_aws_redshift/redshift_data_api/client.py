@@ -14,9 +14,9 @@ import typing as T
 import botocore.exceptions
 from func_args.api import REQ, OPT, remove_optional, BaseModel
 
-from .vendor.waiter import Waiter
+from ..vendor.waiter import Waiter
 
-from .model_redshift_data_api import (
+from .model import (
     DescribeStatementResponse,
     GetStatementResultResponse,
     GetStatementResultResponseIterProxy,
