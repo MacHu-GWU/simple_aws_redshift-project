@@ -8,8 +8,8 @@ Ref:
 - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-data.html
 """
 
-import dataclasses
 import typing as T
+import dataclasses
 
 import botocore.exceptions
 from func_args.api import REQ, OPT, remove_optional, BaseModel

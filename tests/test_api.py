@@ -6,6 +6,7 @@ from simple_aws_redshift import api
 def test():
     _ = api
 
+    _ = api.RedshiftClusterConnectionParams
     _ = api.RedshiftServerlessConnectionParams
 
     _ = api.redshift.RedshiftCluster

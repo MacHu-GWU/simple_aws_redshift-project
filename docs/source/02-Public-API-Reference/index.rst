@@ -5,6 +5,7 @@ This page provides a curated list of all public APIs available in the ``simple_a
 
 Connection Management
 -------------------------------------------------------------------------------
+- :class:`simple_aws_redshift.api.RedshiftClusterConnectionParams <simple_aws_redshift.connect.RedshiftClusterConnectionParams>`
 - :class:`simple_aws_redshift.api.RedshiftServerlessConnectionParams <simple_aws_redshift.connect.RedshiftServerlessConnectionParams>`
 
 Redshift APIs

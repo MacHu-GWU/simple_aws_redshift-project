@@ -10,13 +10,12 @@ sub packages and modules
 .. toctree::
     :maxdepth: 1
 
+    redshift <redshift/__init__>
+    redshift_data_api <redshift_data_api/__init__>
+    redshift_serverless <redshift_serverless/__init__>
     api <api>
-    client_redshift_data_api <client_redshift_data_api>
-    client_redshift_serverless <client_redshift_serverless>
     connect <connect>
+    dialect <dialect>
     model <model>
-    model_redshift_data_api <model_redshift_data_api>
-    model_redshift_serverless <model_redshift_serverless>
-    redshift_data_api_api <redshift_data_api_api>
-    redshift_serverless_api <redshift_serverless_api>
+    utils <utils>
     

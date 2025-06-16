@@ -8,7 +8,19 @@ x.y.z (Backlog)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
+**Minor Improvements**
+
+**Bugfixes**
+
+**Miscellaneous**
+
+
+0.3.1 (2025-06-15)
+------------------------------------------------------------------------------
+**Features and Improvements**
+
 - Add the following public APIs:
+    - ``simple_aws_redshift.api.RedshiftClusterConnectionParams``
     - ``simple_aws_redshift.api.redshift.RedshiftCluster``
     - ``simple_aws_redshift.api.redshift.RedshiftClusterIterProxy``
     - ``simple_aws_redshift.api.redshift.list_redshift_clusters``
@@ -16,9 +28,7 @@ x.y.z (Backlog)
 
 **Minor Improvements**
 
-**Bugfixes**
-
-**Miscellaneous**
+- Improve Documentation Website.
 
 
 0.2.1 (2025-06-13)
