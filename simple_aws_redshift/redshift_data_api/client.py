@@ -189,7 +189,7 @@ def get_statement_result(
     :param id: The identifier of the SQL statement to retrieve results for
     :param max_items: Maximum number of items to return across all pages
 
-    :return: :class:`~simple_aws_redshift.model_redshift_data_api.py.GetStatementResultResponseIterProxy`
+    :return: :class:`~simple_aws_redshift.redshift_data_api.model.GetStatementResultResponseIterProxy`
 
     Reference:
 

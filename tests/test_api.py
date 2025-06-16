@@ -8,6 +8,11 @@ def test():
 
     _ = api.RedshiftServerlessConnectionParams
 
+    _ = api.redshift.RedshiftCluster
+    _ = api.redshift.RedshiftClusterIterProxy
+    _ = api.redshift.list_redshift_clusters
+    _ = api.redshift.get_redshift_cluster
+
     _ = api.redshift_serverless.RedshiftServerlessNamespace
     _ = api.redshift_serverless.RedshiftServerlessNamespaceIterProxy
     _ = api.redshift_serverless.RedshiftServerlessWorkgroup

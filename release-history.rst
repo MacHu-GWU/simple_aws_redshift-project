@@ -8,6 +8,12 @@ x.y.z (Backlog)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
+- Add the following public APIs:
+    - ``simple_aws_redshift.api.redshift.RedshiftCluster``
+    - ``simple_aws_redshift.api.redshift.RedshiftClusterIterProxy``
+    - ``simple_aws_redshift.api.redshift.list_redshift_clusters``
+    - ``simple_aws_redshift.api.redshift.get_redshift_cluster``
+
 **Minor Improvements**
 
 **Bugfixes**

@@ -7,6 +7,18 @@ Connection Management
 -------------------------------------------------------------------------------
 - :class:`simple_aws_redshift.api.RedshiftServerlessConnectionParams <simple_aws_redshift.connect.RedshiftServerlessConnectionParams>`
 
+Redshift APIs
+-------------------------------------------------------------------------------
+
+Data Models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- :class:`simple_aws_redshift.api.redshift.RedshiftCluster <simple_aws_redshift.model_redshift_serverless.RedshiftCluster>`
+- :class:`simple_aws_redshift.api.redshift.RedshiftClusterIterProxy <simple_aws_redshift.model_redshift_serverless.RedshiftClusterIterProxy>`
+
+Client Functions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- :func:`simple_aws_redshift.api.redshift.list_redshift_clusters <simple_aws_redshift.client_redshift_serverless.list_redshift_clusters>`
+- :func:`simple_aws_redshift.api.redshift.get_redshift_cluster <simple_aws_redshift.client_redshift_serverless.get_redshift_cluster>`
 
 Redshift Serverless APIs
 -------------------------------------------------------------------------------
