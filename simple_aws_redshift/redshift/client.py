@@ -31,6 +31,8 @@ def list_redshift_clusters(
     max_items: int = 9999,
 ) -> RedshiftClusterIterProxy:
     """
+    List all Redshift clusters with optional filtering by identifier and tags.
+
     Ref:
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift/paginator/DescribeClusters.html
@@ -64,6 +66,8 @@ def get_redshift_cluster(
     cluster_identifier: str = OPT,
 ) -> T.Optional[RedshiftCluster]:
     """
+    Get a specific Redshift cluster by identifier.
+    
     :return: None if the redshift cluster does not exist.
 
     Ref:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Data models for AWS Redshift Serverless resources.
+Data models for AWS Redshift Cluster resources.
 
 Ref:
 

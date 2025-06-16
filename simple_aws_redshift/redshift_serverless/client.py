@@ -30,6 +30,8 @@ def list_namespaces(
     max_items: int = 9999,
 ) -> RedshiftServerlessNamespaceIterProxy:
     """
+    List all Redshift Serverless namespaces with pagination support.
+    
     Ref:
 
     - https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/redshift-serverless/paginator/ListNamespaces.html
@@ -59,6 +61,8 @@ def get_namespace(
     namespace_name: str,
 ) -> T.Optional[RedshiftServerlessNamespace]:
     """
+    Get a specific Redshift Serverless namespace by name.
+    
     :return: None if the namespace does not exist.
 
     Ref:
@@ -85,6 +89,8 @@ def delete_namespace(
     final_snapshot_retention_period: int = OPT,
 ) -> T.Optional[RedshiftServerlessNamespace]:
     """
+    Delete a Redshift Serverless namespace with optional final snapshot.
+    
     :return: None if the namespace does not exist, otherwise return the deleted namespace object.
 
     Ref:
@@ -115,6 +121,8 @@ def list_workgroups(
     max_items: int = 9999,
 ) -> RedshiftServerlessWorkgroupIterProxy:
     """
+    List all Redshift Serverless workgroups with pagination support.
+    
     :return: `~simple_aws_redshift.model_redshift_serverless.py.RedshiftServerlessWorkgroupIterProxy`
 
     Ref:
@@ -147,6 +155,8 @@ def get_workgroup(
     workgroup_name: str,
 ) -> T.Optional[RedshiftServerlessWorkgroup]:
     """
+    Get a specific Redshift Serverless workgroup by name.
+    
     :return: None if the workgroup does not exist.
 
     Ref:
@@ -171,6 +181,8 @@ def delete_workgroup(
     workgroup_name: str,
 ) -> T.Optional[RedshiftServerlessWorkgroup]:
     """
+    Delete a Redshift Serverless workgroup.
+    
     :return: None if the workgroup does not exist, otherwise return the deleted workgroup object.
 
     Ref:

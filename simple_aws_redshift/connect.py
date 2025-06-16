@@ -92,7 +92,7 @@ class RedshiftClusterConnectionParams(BaseRedshiftConnectionParams):
 
     expiration: datetime = dataclasses.field(default=REQ)
     next_refresh_time: datetime = dataclasses.field(default=REQ)
-    cluster_identifier: str = dataclasses.field(default=REQ)
+    cluster: RedshiftCluster = dataclasses.field(default=REQ)
 
     @classmethod
     def new(
@@ -132,7 +132,7 @@ class RedshiftClusterConnectionParams(BaseRedshiftConnectionParams):
             username=response["DbUser"],
             password=response["DbPassword"],
             database=db_name,
-            cluster_identifier=cluster_identifier,
+            cluster=cluster,
             expiration=response["Expiration"],
             next_refresh_time=response["NextRefreshTime"],
         )
