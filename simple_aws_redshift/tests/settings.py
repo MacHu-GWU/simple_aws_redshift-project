@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import typing as T
 import dataclasses
 from functools import cached_property
 
 import cdk_mate.api as cdk_mate
 
+import sqlalchemy as sa
 import redshift_connector
 from boto_session_manager import BotoSesManager
 
@@ -92,11 +94,32 @@ class Settings:
         print(f"{self.db_password = }")
 
 
-def run_test_sql(conn: redshift_connector.Connection):
+def run_test_sql_with_redshift_connector(
+    conn: redshift_connector.Connection,
+):
     cursor = conn.cursor()
     cursor.execute("SELECT 1;")
     rows = cursor.fetchall()
     print(rows[0])
+
+
+def run_test_sql_with_sqlalchemy_engine(
+    engine: "sa.Engine",
+):
+    with engine.connect() as conn:
+        rows = conn.execute(sa.text("SELECT 1;")).fetchall()
+        print(rows[0])
+
+
+def run_test_sql(
+    conn_or_engine: T.Union["redshift_connector.Connection", "sa.Engine"],
+):
+    if isinstance(conn_or_engine, redshift_connector.Connection):
+        run_test_sql_with_redshift_connector(conn_or_engine)
+    elif isinstance(conn_or_engine, sa.Engine):
+        run_test_sql_with_sqlalchemy_engine(conn_or_engine)
+    else:  # pragma: no cover
+        raise TypeError
 
 
 from .bsm import aws_profile

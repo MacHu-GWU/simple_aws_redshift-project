@@ -10,40 +10,140 @@ from datetime import datetime
 
 try:
     import redshift_connector
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
+    pass
+try:
+    import sqlalchemy as sa
+    from .dialect import RedshiftPostgresDialect, driver_name, dialect_name
+except ImportError:  # pragma: no cover
     pass
 
-from func_args.api import OPT, remove_optional
+from func_args.api import REQ, OPT, remove_optional, BaseModel
 
-from .model_redshift_serverless import (
+from .redshift.api import (
+    RedshiftCluster,
+    get_redshift_cluster,
+)
+from .redshift_serverless.api import (
     RedshiftServerlessNamespace,
     RedshiftServerlessWorkgroup,
+    get_namespace,
+    get_workgroup,
 )
-from .client_redshift_serverless import get_namespace, get_workgroup
 
 if T.TYPE_CHECKING:  # pragma: no cover
+    from mypy_boto3_redshift.client import RedshiftClient
     from mypy_boto3_redshift_serverless.client import RedshiftServerlessClient
 
 
 @dataclasses.dataclass
-class RedshiftConnectionParams:
+class BaseRedshiftConnectionParams(BaseModel):
     """
-    TODO
+    Base class for Redshift connection parameters.
     """
+
+    host: str = dataclasses.field(default=REQ)
+    port: int = dataclasses.field(default=REQ)
+    username: str = dataclasses.field(default=REQ)
+    password: str = dataclasses.field(default=REQ)
+    database: str = dataclasses.field(default=REQ)
+
+    def get_connection(
+        self,
+        timeout: int = 3,
+    ) -> "redshift_connector.Connection":
+        """
+        Create a Redshift connection using the parameters.
+
+        :return: A redshift_connector.Connection object.
+        """
+        return redshift_connector.connect(
+            host=self.host,
+            port=self.port,
+            user=self.username,
+            password=self.password,
+            database=self.database,
+            is_serverless=True,
+            timeout=timeout,
+        )
+
+    @property
+    def sqlalchemy_db_url(self) -> "sa.URL":
+        url = sa.URL.create(
+            drivername=f"{dialect_name}+{driver_name}",
+            username=self.username,
+            password=self.password,
+            host=self.host,
+            port=self.port,
+            database=self.database,
+        )
+        return url
+
+    def get_engine(self, **kwargs) -> "sa.Engine":
+        return sa.create_engine(self.sqlalchemy_db_url, **kwargs)
 
 
 @dataclasses.dataclass
-class RedshiftServerlessConnectionParams:
-    host: str = dataclasses.field()
-    port: int = dataclasses.field()
-    username: str = dataclasses.field()
-    password: str = dataclasses.field()
-    database: str = dataclasses.field()
+class RedshiftClusterConnectionParams(BaseRedshiftConnectionParams):
+    """
+    Parameters for connecting to a Redshift cluster.
+    Inherits from RedshiftConnectionParams.
+    """
 
-    expiration: datetime = dataclasses.field()
-    next_refresh_time: datetime = dataclasses.field()
-    namespace: RedshiftServerlessNamespace = dataclasses.field()
-    workgroup: RedshiftServerlessWorkgroup = dataclasses.field()
+    expiration: datetime = dataclasses.field(default=REQ)
+    next_refresh_time: datetime = dataclasses.field(default=REQ)
+    cluster_identifier: str = dataclasses.field(default=REQ)
+
+    @classmethod
+    def new(
+        cls,
+        redshift_client: "RedshiftClient",
+        db_name: str = OPT,
+        cluster_identifier: str = OPT,
+        duration_seconds: int = OPT,
+        custom_domain_name: str = OPT,
+    ):
+        """
+        Create a new instance of :class:`RedshiftClusterConnectionParams`
+        based on the Redshift cluster identifier.
+
+        :param redshift_client: boto3.client("redshift") object
+        :param db_name: The name of the database to connect to.
+        :param cluster_identifier: The identifier of the Redshift cluster.
+        :param duration_seconds: Optional duration in seconds for the credentials.
+        :param custom_domain_name: Optional custom domain name for the connection.
+        """
+        cluster = get_redshift_cluster(
+            redshift_client=redshift_client,
+            cluster_identifier=cluster_identifier,
+        )
+        kwargs = dict(
+            DbName=db_name,
+            ClusterIdentifier=cluster_identifier,
+            DurationSeconds=duration_seconds,
+            CustomDomainName=custom_domain_name,
+        )
+        response = redshift_client.get_cluster_credentials_with_iam(
+            **remove_optional(**kwargs)
+        )
+        return cls(
+            host=cluster.endpoint_address,
+            port=cluster.endpoint_port,
+            username=response["DbUser"],
+            password=response["DbPassword"],
+            database=db_name,
+            cluster_identifier=cluster_identifier,
+            expiration=response["Expiration"],
+            next_refresh_time=response["NextRefreshTime"],
+        )
+
+
+@dataclasses.dataclass
+class RedshiftServerlessConnectionParams(BaseRedshiftConnectionParams):
+    expiration: datetime = dataclasses.field(default=REQ)
+    next_refresh_time: datetime = dataclasses.field(default=REQ)
+    namespace: RedshiftServerlessNamespace = dataclasses.field(default=REQ)
+    workgroup: RedshiftServerlessWorkgroup = dataclasses.field(default=REQ)
 
     @classmethod
     def new(
@@ -93,22 +193,3 @@ class RedshiftServerlessConnectionParams:
             workgroup=workgroup,
         )
         return params
-
-    def get_connection(
-        self,
-        timeout: int = 3,
-    ) -> "redshift_connector.Connection":
-        """
-        Create a Redshift connection using the parameters.
-
-        :return: A redshift_connector.Connection object.
-        """
-        return redshift_connector.connect(
-            host=self.host,
-            port=self.port,
-            user=self.username,
-            password=self.password,
-            database=self.database,
-            is_serverless=True,
-            timeout=timeout,
-        )
