@@ -14,4 +14,6 @@ python:
   - method: pip
     path: .
   - requirements: requirements.txt
+  - requirements: requirements-dev.txt
   - requirements: requirements-doc.txt
+  - requirements: requirements-test.txt
