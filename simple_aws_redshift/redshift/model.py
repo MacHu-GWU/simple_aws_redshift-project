@@ -16,7 +16,7 @@ from func_args.api import T_KWARGS, REQ
 from enum_mate.api import BetterStrEnum
 from iterproxy import IterProxy
 
-from .model import Base
+from ..model import Base
 
 if T.TYPE_CHECKING:  # pragma: no cover
     from mypy_boto3_redshift.type_defs import (

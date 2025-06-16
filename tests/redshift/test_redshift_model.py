@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from simple_aws_redshift.model_redshift import (
+from simple_aws_redshift.redshift.model import (
     RedshiftCluster,
 )
 
@@ -24,6 +24,6 @@ if __name__ == "__main__":
 
     run_cov_test(
         __file__,
-        "simple_aws_redshift.model_redshift.py",
-        preview=True,
+        "simple_aws_redshift.redshift.model.py",
+        preview=False,
     )
