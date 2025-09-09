@@ -48,6 +48,8 @@ High-Level Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - :func:`simple_aws_redshift.api.redshift_data_api.run_sql <simple_aws_redshift.redshift_data_api.client.run_sql>`
 - :func:`simple_aws_redshift.api.redshift_data_api.get_statement_result <simple_aws_redshift.redshift_data_api.client.get_statement_result>`
+- :func:`simple_aws_redshift.api.redshift_data_api.SqlCommandKeyEnum <simple_aws_redshift.redshift_data_api.client.SqlCommandKeyEnum>`
+- :func:`simple_aws_redshift.api.redshift_data_api.SqlCommand <simple_aws_redshift.redshift_data_api.client.SqlCommand>`
 
 Data Models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,6 +57,8 @@ Data Models
 - :class:`simple_aws_redshift.api.redshift_data_api.DescribeStatementResponse <simple_aws_redshift.redshift_data_api.model.DescribeStatementResponse>`
 - :class:`simple_aws_redshift.api.redshift_data_api.GetStatementResultResponse <simple_aws_redshift.redshift_data_api.model.GetStatementResultResponse>`
 - :class:`simple_aws_redshift.api.redshift_data_api.GetStatementResultResponseIterProxy <simple_aws_redshift.redshift_data_api.model.GetStatementResultResponseIterProxy>`
+- :class:`simple_aws_redshift.api.redshift_data_api.VirtualDataFrame <simple_aws_redshift.redshift_data_api.model.VirtualDataFrame>`
+- :class:`simple_aws_redshift.api.redshift_data_api.ConsolidatedStatementResult <simple_aws_redshift.redshift_data_api.model.ConsolidatedStatementResult>`
 
 Data Type Utilities
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
