@@ -32,9 +32,13 @@ def test():
     _ = api.redshift_data_api.extract_field_python_native_value
     _ = api.redshift_data_api.GetStatementResultResponse
     _ = api.redshift_data_api.GetStatementResultResponseIterProxy
+    _ = api.redshift_data_api.VirtualDataFrame
+    _ = api.redshift_data_api.ConsolidatedStatementResult
+    _ = api.redshift_data_api.get_statement_result
     _ = api.redshift_data_api.RunSqlResult
     _ = api.redshift_data_api.run_sql
-    _ = api.redshift_data_api.get_statement_result
+    _ = api.redshift_data_api.SqlCommandKeyEnum
+    _ = api.redshift_data_api.SqlCommand
 
 
 if __name__ == "__main__":

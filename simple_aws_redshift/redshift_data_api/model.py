@@ -12,13 +12,21 @@ import typing as T
 import enum
 import base64
 import dataclasses
+from functools import cached_property
 from datetime import date, time, datetime
 
 from func_args.api import T_KWARGS, REQ
 from iterproxy import IterProxy
+from ..lazy_imports import tabulate, pd, pl
 
 from ..utils import parse_datetime
 from ..model import Base
+
+try:
+    from rich import print as rprint
+except ImportError:  # pragma: no cover
+    pass
+
 
 if T.TYPE_CHECKING:  # pragma: no cover
     from mypy_boto3_redshift_data.literals import (
@@ -208,6 +216,9 @@ class RedshiftDataType(str, enum.Enum):
     JSON = "json"
     JSONB = "jsonb"
 
+    NAME = "name"
+    OID = "oid"
+
 
 type_to_field_mapping = {
     RedshiftDataType.BOOL.value: "booleanValue",
@@ -229,6 +240,8 @@ type_to_field_mapping = {
     RedshiftDataType.UUID.value: "stringValue",
     RedshiftDataType.VARBYTE.value: "stringValue",
     RedshiftDataType.VARCHAR.value: "stringValue",
+    RedshiftDataType.NAME.value: "stringValue",
+    RedshiftDataType.OID.value: "longValue",
 }
 """
 From redshift column data type to the field key where the value is stored 
@@ -245,6 +258,7 @@ def extract_field_raw_value(
     """
     type_name = column_metadata["typeName"]
     key = type_to_field_mapping[type_name]
+    # Todo add support for one type map to multiple field keys and try them in order
     try:
         raw_value = field[key]
         return raw_value
@@ -313,6 +327,10 @@ class GetStatementResultResponse(Base):
         """
         data = {column_metadata["name"]: [] for column_metadata in self.column_metadata}
         for record in self.records:
+            # print("column_metadata")  # for debug only
+            # rprint(self.column_metadata)  # for debug only
+            # print("record")  # for debug only
+            # rprint(record)  # for debug only
             for column_meta, field in zip(self.column_metadata, record):
                 raw_value = extract_field_raw_value(column_meta, field)
                 native_value = extract_field_python_native_value(column_meta, raw_value)
@@ -343,3 +361,69 @@ class GetStatementResultResponseIterProxy(IterProxy[GetStatementResultResponse])
                 for key, value in column_oriented_data.items():
                     data[key].extend(value)
         return data
+
+
+@dataclasses.dataclass
+class VirtualDataFrame:
+    """
+    A virtual dataframe that can represent tabular data in various formats.
+    """
+
+    columns: list[str] = dataclasses.field()
+    col_data: dict[str, list[T.Any]] = dataclasses.field()
+
+    @cached_property
+    def rows(self):
+        return list(zip(*(self.col_data[col] for col in self.columns)))
+
+    @cached_property
+    def n_columns(self):
+        return len(self.columns)
+
+    @cached_property
+    def n_rows(self):
+        return len(self.col_data[self.columns[0]])
+
+    @cached_property
+    def tabulate_table(self) -> str:
+        return tabulate.tabulate(
+            self.rows,
+            headers=self.columns,
+            tablefmt="psql",
+        )
+
+    @cached_property
+    def pandas_df(self) -> "pd.DataFrame":
+        return pd.DataFrame(self.col_data)
+
+    @cached_property
+    def polars_df(self) -> "pl.DataFrame":
+        return pl.DataFrame(self.col_data)
+
+    def show(self):
+        print(f"({self.n_rows}, {self.n_columns})")
+        print(self.tabulate_table)
+
+
+@dataclasses.dataclass
+class ConsolidatedStatementResult:
+    """
+    Consolidated result from multiple :class:`GetStatementResultResponse` instances.
+    """
+
+    response_list: list["GetStatementResultResponse"] = dataclasses.field()
+
+    @cached_property
+    def vdf(self) -> "VirtualDataFrame":
+        columns = None
+        col_data: dict[str, list[T.Any]] = dict()
+        for res in self.response_list:
+            sub_data = res.to_column_oriented_data()
+            for col, values in sub_data.items():
+                try:
+                    col_data[col].extend(values)
+                except KeyError:
+                    col_data[col] = values
+            columns = [dct["name"] for dct in res.column_metadata]
+        df = VirtualDataFrame(columns=columns, col_data=col_data)
+        return df

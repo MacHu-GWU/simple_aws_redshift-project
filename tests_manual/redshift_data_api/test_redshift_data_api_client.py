@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import textwrap
+
+import pytest
+
 from simple_aws_redshift.redshift_data_api.client import (
-    run_sql,
-    get_statement_result,
+    SqlCommand,
 )
 from simple_aws_redshift.tests.settings import settings
 
 from simple_aws_redshift.tests.bsm import bsm
-
-from rich import print as rprint
 
 
 def test_run_sql():
@@ -49,22 +49,42 @@ def test_run_sql():
     ;
     """
     ).strip()
-    run_sql_result = run_sql(
+    sql_cmd = SqlCommand(
         redshift_data_api_client=bsm.redshiftdataapiservice_client,
         sql=sql,
         database=settings.db_name,
         workgroup_name=settings.workgroup_name,
-        result_format="JSON",
         verbose=True,
     )
-    rprint(run_sql_result)
+    sql_cmd.run()
+    sql_cmd.result.vdf.show()
+    print(sql_cmd.result.vdf.pandas_df)
+    print(sql_cmd.result.vdf.polars_df)
 
-    get_statement_result_response_iterproxy = get_statement_result(
+
+def test_run_sql_2():
+    sql = textwrap.dedent(
+        """ 
+    SELECT * FROM pg_tables LIMIT 10;
+    """
+    ).strip()
+    sql_cmd = SqlCommand(
         redshift_data_api_client=bsm.redshiftdataapiservice_client,
-        id=run_sql_result.execution_id,
+        sql=sql,
+        database=settings.db_name,
+        workgroup_name=settings.workgroup_name,
+        verbose=True,
     )
-    data = get_statement_result_response_iterproxy.to_column_oriented_data()
-    rprint(data)
+    with pytest.raises(AttributeError):
+        _ = sql_cmd.execute_statement_response
+    with pytest.raises(AttributeError):
+        _ = sql_cmd.describe_statement_response
+    with pytest.raises(AttributeError):
+        _ = sql_cmd.get_statement_result_iterproxy
+    with pytest.raises(AttributeError):
+        _ = sql_cmd.result
+
+    sql_cmd.run().result.vdf.show()
 
 
 if __name__ == "__main__":
