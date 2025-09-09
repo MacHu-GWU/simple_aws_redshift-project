@@ -3760,6 +3760,23 @@ files = [
 ]
 
 [[package]]
+name = "soft-deps"
+version = "0.1.1"
+description = "Elegant optional dependency management for Python - full IDE support when available, graceful degradation when missing."
+optional = false
+python-versions = "<4.0,>=3.9"
+groups = ["main"]
+files = [
+    {file = "soft_deps-0.1.1-py3-none-any.whl", hash = "sha256:40299ae5b0795d54e088ef72c8dc78ea927f87e430f8d685632bcdb46bed8098"},
+    {file = "soft_deps-0.1.1.tar.gz", hash = "sha256:06821b012cdc3d2c0585bc13b3eb7816b779ab27e2b8dfdfef6d5c761ec982b8"},
+]
+
+[package.extras]
+dev = ["build (>=1.2.1,<2.0.0)", "rich (>=13.8.1,<14.0.0)", "twine (>=6.0.0,<7.0.0)", "wheel (>=0.45.0,<1.0.0)"]
+doc = ["Sphinx (>=7.4.7,<8.0.0)", "docfly (==3.0.0)", "furo (==2024.8.6)", "ipython (>=8.18.1,<8.19.0)", "nbsphinx (>=0.8.12,<1.0.0)", "pygments (>=2.18.0,<3.0.0)", "rstobj (==1.2.1)", "sphinx-copybutton (>=0.5.2,<1.0.0)", "sphinx-design (>=0.6.1,<1.0.0)", "sphinx-jinja (>=2.0.2,<3.0.0)"]
+test = ["pytest (>=8.2.2,<9.0.0)", "pytest-cov (>=6.0.0,<7.0.0)"]
+
+[[package]]
 name = "soupsieve"
 version = "2.6"
 description = "A modern CSS selector implementation for Beautiful Soup."
@@ -4459,4 +4476,4 @@ test = ["aws-cdk-lib", "boto3", "boto_session_manager", "cdk_mate", "cdkit", "ho
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "c7e0044b0200aa30e41d416d342e767efb08454f1001d95f6e14dbe8d0664300"
+content-hash = "ebc203da23007be35e69f7f8d5d4ea7fa7b73b3b84fbbe747a4407269bc2f79c"
