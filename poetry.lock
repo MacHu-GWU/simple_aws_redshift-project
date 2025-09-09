@@ -4136,6 +4136,22 @@ pure-eval = "*"
 tests = ["cython", "littleutils", "pygments", "pytest", "typeguard"]
 
 [[package]]
+name = "tabulate"
+version = "0.9.0"
+description = "Pretty-print tabular data"
+optional = true
+python-versions = ">=3.7"
+groups = ["main"]
+markers = "extra == \"test\""
+files = [
+    {file = "tabulate-0.9.0-py3-none-any.whl", hash = "sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f"},
+    {file = "tabulate-0.9.0.tar.gz", hash = "sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c"},
+]
+
+[package.extras]
+widechars = ["wcwidth"]
+
+[[package]]
 name = "tinycss2"
 version = "1.4.0"
 description = "A tiny CSS parser"
@@ -4471,9 +4487,9 @@ auto = []
 connnect = ["redshift-connector"]
 dev = ["boto3-stubs", "build", "rich", "twine", "wheel"]
 doc = ["Sphinx", "docfly", "furo", "ipython", "nbsphinx", "pygments", "rstobj", "sphinx-copybutton", "sphinx-design", "sphinx-jinja"]
-test = ["aws-cdk-lib", "boto3", "boto_session_manager", "cdk_mate", "cdkit", "home_secret", "moto", "pandas", "polars", "psycopg2-binary", "pytest", "pytest-cov", "redshift-connector", "rich", "sqlalchemy"]
+test = ["aws-cdk-lib", "boto3", "boto_session_manager", "cdk_mate", "cdkit", "home_secret", "moto", "pandas", "polars", "psycopg2-binary", "pytest", "pytest-cov", "redshift-connector", "rich", "sqlalchemy", "tabulate"]
 
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<4.0"
-content-hash = "ebc203da23007be35e69f7f8d5d4ea7fa7b73b3b84fbbe747a4407269bc2f79c"
+content-hash = "672b66b0e59fb2d08e331391c2bba7e8862181f347653e0146a9b9c315938044"

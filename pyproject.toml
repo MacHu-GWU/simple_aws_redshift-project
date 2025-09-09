@@ -102,6 +102,7 @@ test = [
     "sqlalchemy>=2.0.33,<3.0.0",
     "psycopg2-binary>=2.9.10,<3.0.0",
     "home_secret>=0.1.1,<1.0.0",
+    "tabulate>=0.9.0,<1.0.0", # pretty print tabular data
     "pandas>=2.0.0,<3.0.0", # DataFrame library
     "polars>=1.0.0,<2.0.0", # DataFrame library
 ]
