@@ -15,6 +15,28 @@ x.y.z (Backlog)
 **Miscellaneous**
 
 
+0.4.1 (2025-09-09)
+------------------------------------------------------------------------------
+**Features and Improvements**
+
+- Add ``SqlCommand`` class implementing Command pattern for Redshift Data API workflow management:
+    - ``simple_aws_redshift.api.redshift_data_api.SqlCommand`` - encapsulates SQL execution parameters and provides both automatic (``run()``) and manual workflow control
+    - Replaces deprecated ``run_sql()`` function with better error handling and more intuitive API
+    - Supports both JSON and CSV result formats
+    - Provides consolidated result access and iterator proxy for streaming large result sets
+
+**Minor Improvements**
+
+- Add lazy imports system for better performance and reduced memory footprint
+- Add ``soft-deps`` as core dependency for better optional dependency management
+- Improve Redshift Data API documentation with updated examples and notebooks
+- Add deprecation warnings for ``run_sql()`` function and ``RunSqlResult`` class
+
+**Bugfixes**
+
+- Fix property access in ``SqlCommand`` with better error messages indicating required method calls
+
+
 0.3.1 (2025-06-15)
 ------------------------------------------------------------------------------
 **Features and Improvements**
