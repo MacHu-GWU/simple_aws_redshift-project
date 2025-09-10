@@ -218,6 +218,8 @@ class RedshiftDataType(str, enum.Enum):
 
     NAME = "name"
     OID = "oid"
+    ACL_ITEM = "_aclitem"
+    BLANK_PADDED_CHAR = "bpchar"
 
 
 type_to_field_mapping = {
@@ -242,6 +244,8 @@ type_to_field_mapping = {
     RedshiftDataType.VARCHAR.value: "stringValue",
     RedshiftDataType.NAME.value: "stringValue",
     RedshiftDataType.OID.value: "longValue",
+    RedshiftDataType.ACL_ITEM.value: "stringValue",
+    RedshiftDataType.BLANK_PADDED_CHAR.value: "stringValue",
 }
 """
 From redshift column data type to the field key where the value is stored 
@@ -276,6 +280,8 @@ def extract_field_python_native_value(
     """
     Extracts the native Python value from a Redshift Data API field.
     """
+    if raw_value is None:
+        return raw_value
     type_name = column_metadata["typeName"]
     if type_name in [
         RedshiftDataType.TIMESTAMP.value,
@@ -316,7 +322,10 @@ class GetStatementResultResponse(Base):
             "records": self.records,
         }
 
-    def to_column_oriented_data(self) -> dict[str, list[T.Any]]:
+    def to_column_oriented_data(
+        self,
+        debug: bool = False,
+    ) -> dict[str, list[T.Any]]:
         """
         Convert records to a column-oriented format. Like::
 
@@ -327,13 +336,28 @@ class GetStatementResultResponse(Base):
         """
         data = {column_metadata["name"]: [] for column_metadata in self.column_metadata}
         for record in self.records:
-            # print("column_metadata")  # for debug only
-            # rprint(self.column_metadata)  # for debug only
-            # print("record")  # for debug only
-            # rprint(record)  # for debug only
             for column_meta, field in zip(self.column_metadata, record):
-                raw_value = extract_field_raw_value(column_meta, field)
-                native_value = extract_field_python_native_value(column_meta, raw_value)
+                try:
+                    raw_value = extract_field_raw_value(column_meta, field)
+                except Exception:
+                    if debug:
+                        print("--- column_meta")  # for debug only
+                        rprint(column_meta)  # for debug only
+                        print("record")  # for debug only
+                        rprint(record)  # for debug only
+                        print("field")  # for debug only
+                        rprint(field)  # for debug only
+                    raise
+                try:
+                    native_value = extract_field_python_native_value(column_meta, raw_value)
+                except Exception:
+                    if debug:
+                        print("--- column_meta")  # for debug only
+                        rprint(column_meta)  # for debug only
+                        print("record")  # for debug only
+                        rprint(record)  # for debug only
+                        print("field")  # for debug only
+                        rprint(field)  # for debug only
                 data[column_meta["name"]].append(native_value)
         return data
 
@@ -371,6 +395,9 @@ class VirtualDataFrame:
 
     columns: list[str] = dataclasses.field()
     col_data: dict[str, list[T.Any]] = dataclasses.field()
+
+    def iter_rows(self):
+        return zip(*(self.col_data[col] for col in self.columns))
 
     @cached_property
     def rows(self):
