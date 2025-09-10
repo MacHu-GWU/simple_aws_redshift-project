@@ -15,6 +15,21 @@ x.y.z (Backlog)
 **Miscellaneous**
 
 
+0.4.2 (2025-09-10)
+------------------------------------------------------------------------------
+**Bugfixes**
+
+- Add support for additional Redshift data types in get statement result API response:
+    - ``_aclitem`` (ACL_ITEM) - mapped to stringValue
+    - ``bpchar`` (BLANK_PADDED_CHAR) - mapped to stringValue
+- Fix handling of NULL values in ``extract_field_python_native_value()`` function to prevent errors when processing null fields
+- Add missing ``max_rows`` parameter to ``SqlCommand`` class to control the maximum number of results returned (default: 1000)
+
+**Minor Improvements**
+
+- Add ``debug`` parameter to ``to_column_oriented_data()`` method for debugging parse behavior
+
+
 0.4.1 (2025-09-09)
 ------------------------------------------------------------------------------
 **Features and Improvements**
