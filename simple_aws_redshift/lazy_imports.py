@@ -5,7 +5,7 @@ from soft_deps.api import MissingDependency
 try:
     import tabulate
 except ImportError:  # pragma: no cover
-    pd = MissingDependency("pandas", "pip install tabulate")
+    tabulate = MissingDependency("pandas", "pip install tabulate")
 
 
 try:
