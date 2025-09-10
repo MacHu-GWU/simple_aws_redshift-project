@@ -391,28 +391,47 @@ class GetStatementResultResponseIterProxy(IterProxy[GetStatementResultResponse])
 class VirtualDataFrame:
     """
     A virtual dataframe that can represent tabular data in various formats.
+
+    :param columns: List of column names. Example: ['col1', 'col2', 'col3']
+    :param col_data: Dictionary mapping column names to lists of column values.
+        Example: {'col1': [1, 2, 3], 'col2': ['a', 'b', 'c'], 'col3': [True, False, True]}
     """
 
     columns: list[str] = dataclasses.field()
     col_data: dict[str, list[T.Any]] = dataclasses.field()
 
-    def iter_rows(self):
+    def iter_rows(self) -> T.Iterator[tuple[T.Any, ...]]:
+        """
+        Iterator over rows in the virtual dataframe.
+        """
         return zip(*(self.col_data[col] for col in self.columns))
 
     @cached_property
     def rows(self):
+        """
+        List of rows in the virtual dataframe.
+        """
         return list(zip(*(self.col_data[col] for col in self.columns)))
 
     @cached_property
     def n_columns(self):
+        """
+        Number of columns in the virtual dataframe.
+        """
         return len(self.columns)
 
     @cached_property
     def n_rows(self):
+        """
+        Number of rows in the virtual dataframe.
+        """
         return len(self.col_data[self.columns[0]])
 
     @cached_property
     def tabulate_table(self) -> str:
+        """
+        Render the virtual dataframe as a table using the `tabulate` library.
+        """
         return tabulate.tabulate(
             self.rows,
             headers=self.columns,
@@ -421,10 +440,16 @@ class VirtualDataFrame:
 
     @cached_property
     def pandas_df(self) -> "pd.DataFrame":
+        """
+        Convert the virtual dataframe to a pandas DataFrame.
+        """
         return pd.DataFrame(self.col_data)
 
     @cached_property
     def polars_df(self) -> "pl.DataFrame":
+        """
+        Convert the virtual dataframe to a polars DataFrame.
+        """
         return pl.DataFrame(self.col_data)
 
     def show(self):
@@ -442,6 +467,9 @@ class ConsolidatedStatementResult:
 
     @cached_property
     def vdf(self) -> "VirtualDataFrame":
+        """
+        Convert the consolidated results into a VirtualDataFrame.
+        """
         columns = None
         col_data: dict[str, list[T.Any]] = dict()
         for res in self.response_list:
