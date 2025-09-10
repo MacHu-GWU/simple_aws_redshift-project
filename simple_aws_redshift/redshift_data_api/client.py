@@ -75,7 +75,6 @@ def get_statement_result(
                 raw_data=get_statement_result_response
             )
             yield statement_result
-
     return GetStatementResultResponseIterProxy(func())
 
 
@@ -305,6 +304,7 @@ class SqlCommand(BaseFrozenModel):
     timeout: int = dataclasses.field(default=10)
     verbose: bool = dataclasses.field(default=False)
     raises_on_error: bool = dataclasses.field(default=True)
+    max_rows: int = dataclasses.field(default=1000)
     _data: dict[str, T.Any] = dataclasses.field(default_factory=dict)
 
     def _get_attr(
@@ -472,6 +472,7 @@ class SqlCommand(BaseFrozenModel):
         iterproxy = get_statement_result(
             redshift_data_api_client=self.redshift_data_api_client,
             id=self.statement_id,
+            max_items=self.max_rows,
         )
         self._data[SqlCommandKeyEnum.get_statement_result_iterproxy] = iterproxy
         return iterproxy
